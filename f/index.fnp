@@ -1,0 +1,53 @@
+# \icoB:{ico.webp|图标|#570bff};Fnp标记语言 - 说明文档 \id:begin;
+#line
+\abbr{一款标记语言，全称FurryNss_Page|Fnp}\abbr，是一款不那么轻量级的标记语言，一般用于渲染为\abbr{超文本标记语言|HTML}\abbr。
+\abbr{一款标记语言，全称FurryNss_Page|Fnp}\abbr的语法处于简洁和丰富之间，其汲取了\abbr{轻量级标记语言|MarkDown}\abbr和\abbr{文档标记语言|LaTex}\abbr语法的部分优秀特点。
+默认下\abbr{一款标记语言，全称FurryNss_Page|Fnp}\abbr不可以与\abbr{超文本标记语言|HTML}\abbr混编，但也可以通过修改配置文件来达成这一点，以及，为什么还需要\abbr{超文本标记语言|HTML}\abbr呢？
+
+#2 在网站中使用Fnp
+可以通过引入`fnp.css`\download{fnp.css|样式文件}\download和`fnp.js`\download{fnp.js|代码文件}\download来使用\abbr{超文本标记语言|HTML}\abbr。
+#detailsB.beg 样例`index.html`文件
+``` mul1 html
+<!DOCTYPE html>
+<html lang="zh-Hans">
+	<head>
+		<meta charset="utf-8">
+		<link rel="icon" href="rc/ico.webp"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Fnp页面</title>
+		<link rel="stylesheet" href="lib/fnp.css" />
+		<script src="lib/fnp.js"></script>
+	</head>
+	<body>
+		<main id="main"></main>
+		<script>
+			const fnp = Fnp({
+				pages: "f",
+				rc: "rc",
+				index: "index",
+				box: {
+					main: document.getElementById('main')
+				}
+			});
+			fnp.run();
+		</script>
+	</body>
+</html>
+```
+#detailsB.end
+
+#2 Fnp语法速查表 \id:yfscb;
+#line
+#3 行内字体样式
+\goto{yf|bidu|加粗倾斜删除线下划线}\goto、\goto{yf|markem|强调}\goto、\goto{yf|insdel|编辑标识}\goto、\goto{yf|supb|上下标}\goto、\goto{yf|color|颜色}\goto、\goto{yf|cite|引用}\goto、\goto{yf|abbr|缩写}\goto、\goto{yf|waveline|波浪线}\goto、\goto{yf|pingying|拼音与翻译}\goto、\goto{yf|bdo|文本方向}\goto
+#3 块级字体样式
+\goto{yf|h|标题}\goto、\goto{yf|list|列表}\goto、\goto{yf|cite|引用块}\goto、\goto{yf|details|块区与折叠组件}\goto、\goto{yf|DoubleColumns|分栏}\goto、\goto{yf|table|表格}\goto
+#3 链接
+\goto{yf|a|链接与跳转}\goto、\goto{yf|download|资源下载}\goto
+#3 媒体
+\goto{yf|img|图标与图片}\goto、\goto{yf|iframe|内嵌HTML框架元素}\goto、\goto{yf|audio|音频}\goto、\goto{yf|video|视频}\goto
+#3 杂项
+\goto{yf|code|代码}\goto、\goto{yf|cm|注释}\goto
+
+#3 向外导出
+\goto{yf|title|文档标题与图标}\goto

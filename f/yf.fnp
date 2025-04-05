@@ -1,0 +1,686 @@
+# \icoB:{ico.webp|图标|#570bff};Fnp标记语言 - 基本语法大全 \id:begin;
+#line;
+## 基本字体设置：加粗、倾斜、删除线、下划线 \id:bidu;
+因为技术限制，加粗、倾斜、删除线的语法，相较于\abbr{轻量级标记语言|MarkDown}\abbr，\abbr{一款标记语言，全称FurryNss_Page|Fnp}\abbr需要额外添加`{}`花括号，如下：
+#box.beg
+**{加粗}** __{加粗}__ \b{倾斜}\b `**{加粗}** __{加粗}__ \b{倾斜}\b`
+*{倾斜}* _{倾斜}_ \i{倾斜}\i `*{倾斜}* _{倾斜}_ \i{倾斜}\i`
+~~{删除线}~~ \d{删除线}\d \s{删除线}\s `~~{删除线}~~ \d{删除线}\d \s{删除线}\s`
+___{下划线}___ \u{下划线}\u `___{下划线}___ \u{下划线}\u`
+#box.end
+此处加粗使用`<b></b>`。如果不想误用`<b></b>`，也可以使用由`css> font-weight: bold;`实现的：
+#box.beg
+\bold{加粗}\bold \B{加粗}\B `\bold{加粗}\bold \B{加粗}\B`
+#box.end
+#line;
+## 强调 \id:markem;
+#box.beg
+\mark{使用<mark>强调}\mark `\mark{使用<mark>强调}\mark`
+\em{使用<em>强调}\em `\em{使用<em>强调}\em`
+#box.end
+#line;
+## 编辑标识 \id:insdel;
+#box.beg
+#del 被从文档删除的文本内容
+#ins 添加到文档中的文本内容
++{插入文字}+ \ins{插入文字}\ins
+-{删除文字}- \del{删除文字}\del
+#box.end
+```
+#del 被从文档删除的文本内容
+#ins 添加到文档中的文本内容
++{插入文字}+ \ins{插入文字}\ins
+-{删除文字}- \del{删除文字}\del
+```
+#line
+## 上标与下标 \id:supb;
+#box.beg
+a\sup{2}\sup+b\up{2}\up Text^{上标}^ `a\sup{2}\sup+b\up{2}\up Text^{上标}^`
+a\sub{i}\subb\down{j}\down Text~{下标}~ `a\sub{i}\subb\down{j}\down Text~{下标}~`
+#box.end
+#line;
+## 文字颜色与背景颜色 \id:color;
+\abbr{一款标记语言，全称FurryNss_Page|Fnp}\abbr提供文字颜色及背景颜色设置语法，二者可以嵌套使用：
+#box.beg
+\col{#ff0000|红色文字}\col、\bkc{#00ff00|绿色背景}\bkc、\bkc{#0000ff|\col{#ffffff|蓝底白字}\col}\bkc、\bkc{#ffffaa|\col{#ff00ff|黄底紫字}\col、\col{#ff8800|黄底橙字}\col}\bkc。
+#box.end
+```
+\col{#ff0000|红色文字}\col、\bkc{#00ff00|绿色背景}\bkc、\bkc{#0000ff|\col{#ffffff|蓝底白字}\col}\bkc、\bkc{#ffffaa|\col{#ff00ff|黄底紫字}\col、\col{#ff8800|黄底橙字}\col}\bkc。
+```
+或者：
+#box.beg
+\C{#ff0000|红色文字}\C、\BK{#00ff00|绿色背景}\BK、\BK{#0000ff|\C{#ffffff|蓝底白字}\C}\BK、\BK{#ffffaa|\C{#ff00ff|黄底紫字}\C、\C{#ff8800|黄底橙字}\C}\BK。
+#box.end
+```
+\C{#ff0000|红色文字}\C、\BK{#00ff00|绿色背景}\BK、\BK{#0000ff|\C{#ffffff|蓝底白字}\C}\BK、\BK{#ffffaa|\C{#ff00ff|黄底紫字}\C、\C{#ff8800|黄底橙字}\C}\BK。
+```
+#line
+## 引用 \id:cite;
+#box.beg
+使用`<cite></cite>`实现，有：\cite{被引用对象}\cite。
+或者，与链接配合使用：\cite{\to{a|链接与跳转}\to}\cite。
+另外地，使用`<q></q>`实现双引号版本：\q{被引用}\q。
+与链接配合使用：\q{\to{a|链接与跳转}\to}\q。
+#bq:cite 以及，这是**{引用块}**版本。
+#ubq:cite —来自\C{#0ff|XXX}\C 这是**{带署名}**的引用块版本。
+#box.end
+```
+使用`<cite></cite>`实现，有：\cite{被引用对象}\cite。
+或者，与链接配合使用：\cite{\to{a|链接与跳转}\to}\cite。
+另外地，使用`<q></q>`实现双引号版本：\q{被引用}\q。
+与链接配合使用：\q{\to{a|链接与跳转}\to}\q。
+#bq:cite 以及，这是**{引用块}**版本。
+#ubq:cite —来自\C{#0ff|XXX}\C 这是**{带署名}**的引用块版本。
+```
+#line
+## 链接与跳转 \id:a;
+可以创建一个链接，语法为`\a{协议://路径|描述文字}\a`：
+#box.beg
+\a{http://fnp.furrynss.cn?fnp=index|前往页面：Fnp标记语言 - 说明文档}\a `\a{http://fnp.furrynss.cn?fnp=index|前往页面：Fnp标记语言 - 说明文档}\a`
+#box.end
+在同一文档内部，可以使用`\id`和`\to`进行页内跳转：
+#box.beg
+\to{begin|跳转到本文档开头}\to
+#box.end
+```
+# \icoB:{ico.webp|图标|#570bff};Fnp标记语言 - 基本语法大全 \id:begin;
+...<中间内容>...
+\to{begin|跳转到本文档开头}\to
+```
+在不同的\abbr{一款标记语言，全称FurryNss_Page|Fnp}\abbr文档，可以使用`\go`进行跳转：
+\go{index|前往页面：Fnp标记语言 - 说明文档}\go `\go{index|前往页面：Fnp标记语言 - 说明文档}\go`
+在不同页面跳转并跳转至对应`\id`处：使用`\goto`：
+\goto{index|yfscb|前往页面：Fnp标记语言 - 说明文档 的 Fnp语法速查表处}\goto
+```
+index.fnp:
+#2 Fnp语法速查表 \id:yfscb;
+
+yf.fnp:
+\goto{index|yfscb|前往页面：Fnp标记语言 - 说明文档 的 Fnp语法速查表处}\goto
+```
+提供返回上页语法：\goback{1|返回上一页}\goback `\goback{1|返回上一页}\goback`；\goback{2|返回上两页}\goback `\goback{2|返回上两页}\goback`
+#line
+## 资源下载 \id:download;
+#box.beg
+\download{fill.png|下载资源：fill.png}\download `\download{fill.png|下载资源：fill.png}\download`
+\D{ico.webp|下载资源：ico.webp}\D `\D{ico.webp|下载资源：ico.webp}\D`
+#box.end
+\figure_img.beg
+-src fill.png
+-alt fill.png
+-title fill.png
+-width 10em
+\figure_img.end
+\figure_img.beg
+-src ico.webp
+-alt ico.webp
+-title ico.webp
+-width 10em
+\figure_img.end
+#line;
+## 缩写 \id:abbr;
+#box.beg
+\abbr{一款标记语言，全称FurryNss_Page|Fnp}\abbr `\abbr{一款标记语言，全称FurryNss_Page|Fnp}\abbr`
+#box.end
+#line
+## 波浪线：更正与信息提示 \id:waveline;
+提供波浪线型样式，用于指出需更正处内容。
+#box.beg
+\redline{错误}\redline、\yellowline{警告}\yellowline、\greenline{一般}\greenline、\blueline{信息}\blueline、\skyline{突出}\skyline
+对于其它颜色，提供以下语法：\waveline{#f0f|波浪线}\waveline
+#box.end
+```
+\redline{错误}\redline、\yellowline{警告}\yellowline、\greenline{一般}\greenline、\blueline{信息}\blueline、\skyline{突出}\skyline
+对于其它颜色，提供以下语法：\waveline{#f0f|波浪线}\waveline
+```
+#line;
+## 描述字符发音或翻译或音译信息 \id:pingying;
+即使用`<ruby></ruby>`，如：
+#box.beg
+\ruby{lóng|龙}\ruby\ruby{yuān|渊}\ruby\ruby{yuè|月}\ruby\ruby{àn|黯}\ruby\ruby{huī|恢}\ruby\ruby{lǐ|理}\ruby\ruby{zhèng|正}\ruby，\Y{hǔ|虎}\Y\Y{xiào|哮}\Y\Y{xīng|星}\Y\Y{shēng|升}\Y\Y{qǐ|起}\Y\Y{háng|航}\Y\Y{guāng|光}\Y。
+\ruby{zhì lìng xīn kē shèng guǎng cóng bīng fú jù xiè huáng huā fǎn|志令新科胜广从，兵符聚械黄花反。}\ruby
+\Y{sūn máo|孙毛}\Y \Y{wǎng shèng|往圣}\Y \Y{jì jué xué|继绝学}\Y，\Y{mò lì|墨翟}\Y \Y{jiān xiāng|兼相}\Y \Y{mín mìng lì|民命立}\Y。
+\ruby{yuè gǎng xié jūn piàn xī wǎng|越港携军片息往}\ruby，\Y{jīng shī yàn zhǎn jiǔ yè míng|京师焰斩久夜明}\Y。
+#box.end
+```
+\ruby{lóng|龙}\ruby\ruby{yuān|渊}\ruby\ruby{yuè|月}\ruby\ruby{àn|黯}\ruby\ruby{huī|恢}\ruby\ruby{lǐ|理}\ruby\ruby{zhèng|正}\ruby，\Y{hǔ|虎}\Y\Y{xiào|哮}\Y\Y{xīng|星}\Y\Y{shēng|升}\Y\Y{qǐ|起}\Y\Y{háng|航}\Y\Y{guāng|光}\Y。
+\ruby{zhì lìng xīn kē shèng guǎng cóng bīng fú jù xiè huáng huā fǎn|志令新科胜广从，兵符聚械黄花反。}\ruby
+\Y{sūn máo|孙毛}\Y \Y{wǎng shèng|往圣}\Y \Y{jì jué xué|继绝学}\Y，\Y{mò lì|墨翟}\Y \Y{jiān xiāng|兼相}\Y \Y{mín mìng lì|民命立}\Y。
+\ruby{yuè gǎng xié jūn piàn xī wǎng|越港携军片息往}\ruby，\Y{jīng shī yàn zhǎn jiǔ yè míng|京师焰斩久夜明}\Y。
+```
+#line; 
+## 文本方向 \id:bdo;
+#box.beg
+\bdo{ltr|从左到右}\bdo、\bdo{rtl|从右到左}\bdo
+#line;
+\bdo{utb|A从上到下1
+A从上到下2}\bdo；\bdo{utbl|B从上到下1
+B从上到下2}\bdo
+#line;
+\bdo{btu|A从下到上1
+A从下到上2}\bdo；\bdo{btur|B从下到上1
+B从下到上2}\bdo
+#box.end
+```
+\bdo{ltr|从左到右}\bdo、\bdo{rtl|从右到左}\bdo
+#line;
+\bdo{utb|A从上到下1
+A从上到下2}\bdo；\bdo{utbl|B从上到下1
+B从上到下2}\bdo
+#line;
+\bdo{btu|A从下到上1
+A从下到上2}\bdo；\bdo{btur|B从下到上1
+B从下到上2}\bdo
+```
+#line;
+## 标题语法 \id:h;
+与\abbr{轻量级标记语言|MarkDown}\abbr类似，\abbr{一款标记语言，全称FurryNss_Page|Fnp}\abbr也可以使用“行首以`#`号开头，空格分割的，不同级别”的标题语法。共分为六个级别，分别对应了\abbr{超文本标记语言|HTML}\abbr的`<h1>`到`<h6>`，如下：
+#box.beg
+# 标题1
+## 标题2
+### 标题3
+#### 标题4
+##### 标题5
+###### 标题6
+#box.end
+```
+# 标题1
+## 标题2
+### 标题3
+#### 标题4
+##### 标题5
+###### 标题6
+```
+或者，\abbr{一款标记语言，全称FurryNss_Page|Fnp}\abbr也提供了另一种标题语法，如下：
+#box.beg
+#1 标题1
+#2 标题2
+#3 标题3
+#4 标题4
+#5 标题5
+#6 标题6
+#box.end
+```
+#1 标题1
+#2 标题2
+#3 标题3
+#4 标题4
+#5 标题5
+#6 标题6
+```
+标题可以包含行内语法，比如：
+#box.beg
+# \icoB:{ico.webp|图标|#570bff};这是\BK{#ffcc55|一个\C{#0af|标题}\C}\BK.
+#box.end
+```
+# \icoB:{ico.webp|图标|#570bff};这是\BK{#ffcc55|一个\C{#0af|标题}\C}\BK.
+```
+#line;
+## 列表语法 \id:list;
+\abbr{一款标记语言，全称FurryNss_Page|Fnp}\abbr提供\to{olist|有序列表}\to、\to{ulist|无序列表}\to的语法。
+
+### 有序列表; \id:olist;
+有序列表就是有顺序的列表，依靠行前的数字标记顺序。
+\abbr{一款标记语言，全称FurryNss_Page|Fnp}\abbr没有实现相关功能，因为可以直接手写文本。
+#box.beg
+1. 有序列表1
+2. 有序列表2
+3. 有序列表3
+4) 有序列表4
+#box.end
+```
+1. 有序列表1
+2. 有序列表2
+3. 有序列表3
+4) 有序列表4
+```
+如果需要更好的表现效果，可以使用：
+#box.beg
+#ol:1. 有序列表1
+#ol:2. 有序列表2
+#ol:3. 有序列表3
+#ol:4) 有序列表4
+	#ol:A. 有序列表4-A
+		#ol:a. 有序列表4-A-a
+#box.end
+```
+#ol:1. 有序列表1
+#ol:2. 有序列表2
+#ol:3. 有序列表3
+#ol:4) 有序列表4
+	#ol:A. 有序列表4-A
+		#ol:a. 有序列表4-A-a
+```
+对于两位数或三位数，为对齐，可以使用：
+#box.beg
+#ol+:1. 有序列表1
+#ol+:11. 有序列表11
+#ol+:101. 有序列表101
+	#ol+:AA. 有序列表101-AA
+		#ol+:ab. 有序列表101-AA-ab
+#ol+:001. 有序列表001
+#ol+:*&{ 有序列表*&
+#box.end
+```
+#ol+:1. 有序列表1
+#ol+:11. 有序列表11
+#ol+:101. 有序列表101
+	#ol+:AA. 有序列表101-AA
+		#ol+:ab. 有序列表101-AA-ab
+#ol+:001. 有序列表001
+#ol+:*&{ 有序列表*&
+```
+
+### 无序列表 \id:ulist;
+无序列表就是列表不排序，无序列表因书写随意而被更广泛的使用。
+类似\abbr{轻量级标记语言|MarkDown}\abbr，\abbr{一款标记语言，全称FurryNss_Page|Fnp}\abbr也提供无序列表的3种前缀：`-`、`*`、`+`。
+#box.beg
+- 无序列表1
+	* 无序列表2
+		+ 无序列表3
+#box.end
+```
+- 无序列表1
+	* 无序列表2
+		+ 无序列表3
+```
+事实上，判断是第一、第二、第三级列表，在\abbr{一款标记语言，全称FurryNss_Page|Fnp}\abbr实现中，**{与且只与}**缩进`\t`有关。而对于无序列表的**{图标}**，则是由`-`、`*`、`+`所决定：
+#box.beg
+- 无序列表-1
+* 无序列表*2
++ 无序列表+3
+	- 无序列表-4
+	* 无序列表*5
+	+ 无序列表+6
+		- 无序列表-7
+		* 无序列表*8
+		+ 无序列表+9
+#box.end
+```
+- 无序列表-1
+* 无序列表*2
++ 无序列表+3
+	- 无序列表-4
+	* 无序列表*5
+	+ 无序列表+6
+		- 无序列表-7
+		* 无序列表*8
+		+ 无序列表+9
+```
+并额外提供`=`，表示无图标：
+#box.beg
+= 无序列表1
+	= 无序列表2
+		= 无序列表3
+#box.end
+```
+= 无序列表1
+	= 无序列表2
+		= 无序列表3
+```
+#line
+## 块区与折叠组件 \id:details;
+#box.beg
+这是个块区。
+#box.beg
+这是也个块区（嵌套）。
+#box.end
+#box.end
+#box.beg
+#details.beg 这是一个折叠组件
+#3 折叠组件1
+\color{#0f0|这是一个折叠组件}\color
+#details.end
+#detailsB.beg 这也是一个折叠组件
+#3 折叠组件2
+\color{#f0f|这也是一个折叠组件}\color
+#detailsB.end
+#box.end
+```
+#box.beg
+这是个块区。
+#box.beg
+这是也个块区（嵌套）。
+#box.end
+#box.end
+#box.beg
+#details.beg 这是一个折叠组件
+#3 折叠组件1
+\color{#0f0|这是一个折叠组件}\color
+#details.end
+#detailsB.beg 这也是一个折叠组件
+#3 折叠组件2
+\color{#f0f|这也是一个折叠组件}\color
+#detailsB.end
+#box.end
+```
+## 图片与图标 \id:img;
+#box.beg
+\ico:{ico.webp|图标};图标图片，等比缩放高度为文字高度。
+\icoB:{ico.webp|图标|#570bff};带圆框图标图片。
+\img:{fill.png|fill};行内图片，其大小为原大小。
+#detailsB.beg 块级图片，等比缩放宽度为`100%`。
+#Img:fill.png fill
+#detailsB.end
+#box.end
+```
+\ico:{ico.webp|图标};图标图片，，等比缩放高度为文字高度。
+\icoB:{ico.webp|图标|#570bff};带圆框图标图片。
+\img:{fill.png|fill};行内图片，其大小为原大小。
+#detailsB.beg 块级图片，等比缩放宽度为`100%`。
+#Img:fill.png fill
+#detailsB.end
+```
+#line
+带标题插图：
+\figure_img.beg
+-src fill.png
+-alt fill.png
+-title fill.png
+-width 10em
+\figure_img.end
+\figure_img.beg
+-src ico.webp
+-alt ico.webp
+-title ico.webp
+-width 10em
+\figure_img.end
+```
+#figure_img.beg
+<...使用Fno语法，参数见下方...>
+#figure_img.end
+```
+``` mul1 fno
+-src fill.png
+-alt fill.png
+-title fill.png
+-width 10em
+```
+``` mul1 fno
+-src ico.webp
+-alt ico.webp
+-title ico.webp
+-width 10em
+```
+#line;
+## 内嵌HTML框架元素 \id:iframe;
+#iframe test.html test(title) 100% 100px
+```
+#iframe test.html test(title) 100% 100px
+```
+\D{test.html|下载资源：test.html}\D
+#line;
+## 分栏 \id:DoubleColumns;
+你可以使用分栏。
+- 双栏版本 两边
+#box.beg
+#DoubleColumns.beg
+#box.beg
+# 左边
+#box.end
+#DoubleColumns.mid
+
+# 右边
+
+#DoubleColumns.end
+#box.end
+```
+#DoubleColumns.beg
+#box.beg
+# 左边
+#box.end
+#DoubleColumns.mid
+
+# 右边
+
+#DoubleColumns.end
+```
+- 双栏版本 靠左
+#box.beg
+#DoubleColumnsL.beg
+#box.beg
+# 左边
+#box.end
+#DoubleColumnsL.mid
+
+# 右边
+
+#DoubleColumnsL.end
+#box.end
+```
+#DoubleColumnsL.beg
+#box.beg
+# 左边
+#box.end
+#DoubleColumnsL.mid
+
+# 右边
+
+#DoubleColumnsL.end
+```
+## 代码 \id:code;
+基本的\abbr{一款标记语言，全称FurryNss_Page|Fnp}\abbr提供了基础的代码块支持，比如：
+#box.beg
+`单行代码`；@{单行代码}@。
+```
+多行代码
+```
+#box.end
+```
+`单行代码`；@{单行代码}@。
+`\;``
+多行代码
+`\;``
+```
+基本的\abbr{一款标记语言，全称FurryNss_Page|Fnp}\abbr并未为非`Fn`系列提供代码着色等功能，但可以引入外部工具美化。
+其中，代码块若有选项`A...`，代码块将获得`class`属性`code_A...`，例如，以下有选项`javascript`，代码块将获得`class`属性`code_javascript`。
+#box.beg
+``` mul1 javascript
+	var doc = document
+```
+``` mul2 javascript
+	var doc = document
+```
+#box.end
+```
+`\;`` mul1 javascript
+	var doc = document
+`\;``
+`\;`` mul2 javascript
+	var doc = document
+`\;``
+```
+其中，`mul1`、`mul2`是代码块样式，其对应的`class`为：`code_mul1`、`code_mul2`。
+而对于`Fn`系列，只提供\abbr{一款一维键值对描述语言|Fno}\abbr、\abbr{一款二维键值对描述语言|Fna}\abbr。
+- \abbr{一款一维键值对描述语言|Fno}\abbr
+``` mul1 fno
+-key1 val1 
+-key2 val2
+```
+- \abbr{一款二维键值对描述语言|Fna}\abbr
+``` mul1 fna
+# name1
+-key1 val1
+-key2 val2
+
+# name2
+-key1 val1
+-key3 val3
+```
+在代码块中的内容不会被递归解析，除了代码块的边界符号：@{`...`}@、@{```}@、`@{...}@`，其中@{```}@在多行代码中可以用@{``\;`}@或@{`\;``}@分隔开，@{`...`}@和`@{...}@`请交换使用。
+#line;
+## 注释 \id:cm;
+\abbr{轻量级标记语言|MarkDown}\abbr和\abbr{超文本标记语言|HTML}\abbr使用的是`<!--注释-->`，但\abbr{一款标记语言，全称FurryNss_Page|Fnp}\abbr实现中已经预处理了`<`、`>`、`&`，所以提供另一种语法：
+#box.beg
+下面有单行语法注释。
+#cm 注释
+上面有单行语法注释。
+右边有注释>\cm{注释}\cm<左边有注释
+#cm.beg
+多行注释
+多行注释
+多行注释
+#cm.end
+#box.end
+```
+下面有单行语法注释。
+#cm 注释
+上面有单行语法注释。
+右边有注释>\cm{注释}\cm<左边有注释
+#cm.beg
+多行注释
+多行注释
+多行注释
+#cm.end
+```
+其中，`cm`取自\q{comments}\q。
+这里的注释会以`<!--注释-->`的形式添加到\abbr{超文本标记语言|HTML}\abbr。
+若不添加，即不保留注释，可使用：
+#box.beg
+下面有单行语法注释。
+#CM 注释
+上面有单行语法注释。
+右边有注释>\CM{注释}\CM<左边有注释
+#CM.beg
+多行注释
+多行注释
+多行注释
+#CM.end
+#box.end
+```
+下面有单行语法注释。
+#CM 注释
+上面有单行语法注释。
+右边有注释>\CM{注释}\CM<左边有注释
+#CM.beg
+多行注释
+多行注释
+多行注释
+#CM.end
+```
+#line;
+## 文档标题与图标 \id:title;
+@Title Fnp标记语言 - 基本语法大全
+@Icon fill.png
+```
+@Title Fnp标记语言 - 基本语法大全
+@Icon fill.png
+```
+#line;
+## 音频 \id:audio;
+#audio.beg
+-src rc/test.mp3
+-alt 一段测试音频
+-autoplay ~
+-controls true
+-loop ~
+-muted ~
+-preload metadata
+#audio.end
+测试音频来源：\a{https|www.aigei.com/tool/audio/dub|爱给音频编辑器}\a。
+音频下载：\download{test.mp3|test.mp3}\download
+```
+#audio.beg
+<...使用Fno语法，参数见下方...>
+#audio.end
+```
+``` mul1 fno
+-src rc/test.mp3
+-alt 一段测试音频
+-autoplay ~
+-controls true
+-loop ~
+-muted ~
+-preload metadata
+```
+#line;
+## 视频 \id:video;
+#video.beg
+-src rc/test.mp4
+-alt 一段测试视频
+-autoplay ~
+-controls true
+-controlslist nodownload nofullscreen noremoteplayback
+-disablepictureinpicture true
+-loop ~
+-muted ~
+-preload metadata
+-poster rc/test.png
+-track rc/test.vtt cn subtitles
+-width 500rem
+#video.end
+测试视频来源：PPT制作。
+视频下载：\download{rc/test.mp4|test.mp4}\download
+字幕下载：\download{rc/test.vtt|test.vtt}\download
+提供一个`.vtt`教程：\a{https|developer.mozilla.org/zh-CN/docs/Web/API/WebVTT_API|MDN Web Docs}\a
+```
+#video.beg
+<...使用Fno语法，参数见下方...>
+#video.end
+```
+``` mul1 fno
+-src rc/test.mp4
+-alt 一段测试视频
+-autoplay ~
+-controls true
+-controlslist nodownload nofullscreen noremoteplayback
+-disablepictureinpicture true
+-loop ~
+-muted ~
+-preload metadata
+-poster rc/test.png
+-track rc/test.vtt cn subtitles
+-width 500rem
+```
+#line;
+## 表格 \id:table;
+#table.beg
+
+# 表格名称
+-0 名称
+-1 标签
+-2 数据
+
+# 样例甲
+-标签 A
+-数据 1
+
+# 样例乙
+-标签 B
+
+# 样例丙
+-数据 2
+
+# 样例甲
+
+# $
+-caption top
+
+#table.end
+```
+#table.beg
+<...使用Fna语法，参数见下方...>
+#table.end
+```
+``` mul1 fna
+# 表格名称
+-0 名称
+-1 标签
+-2 数据
+
+# 样例甲
+-标签 A
+-数据 1
+
+# 样例乙
+-标签 B
+
+# 样例丙
+-数据 2
+
+# 样例甲
+
+# $
+-caption top
+```
+#line;
