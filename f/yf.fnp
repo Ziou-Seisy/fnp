@@ -612,7 +612,7 @@ B从下到上2}\bdo
 测试视频来源：PPT制作。
 视频下载：\download{rc/test.mp4|test.mp4}\download
 字幕下载：\download{rc/test.vtt|test.vtt}\download
-提供一个`.vtt`教程：\a{https|developer.mozilla.org/zh-CN/docs/Web/API/WebVTT_API|MDN Web Docs}\a
+提供一个`.vtt`教程：\a{https://developer.mozilla.org/zh-CN/docs/Web/API/WebVTT_API|MDN Web Docs}\a
 ```
 #video.beg
 <...使用Fno语法，参数见下方...>
