@@ -577,7 +577,7 @@ B从下到上2}\bdo
 -muted ~
 -preload metadata
 #audio.end
-测试音频来源：\a{https|www.aigei.com/tool/audio/dub|爱给音频编辑器}\a。
+测试音频来源：\a{https://www.aigei.com/tool/audio/dub|爱给音频编辑器}\a。
 音频下载：\download{test.mp3|test.mp3}\download
 ```
 #audio.beg
