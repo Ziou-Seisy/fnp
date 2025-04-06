@@ -540,6 +540,9 @@ B从下到上2}\bdo
 下面有单行语法注释。
 #CM 注释
 上面有单行语法注释。
+下面有单行语法注释。
+· 注释
+上面有单行语法注释。
 右边有注释>\CM{注释}\CM<左边有注释
 #CM.beg
 多行注释
@@ -550,6 +553,9 @@ B从下到上2}\bdo
 ```
 下面有单行语法注释。
 #CM 注释
+上面有单行语法注释。
+下面有单行语法注释。
+· 注释
 上面有单行语法注释。
 右边有注释>\CM{注释}\CM<左边有注释
 #CM.beg
@@ -562,9 +568,16 @@ B从下到上2}\bdo
 ## 文档标题与图标 \id:title;
 @Title Fnp标记语言 - 基本语法大全
 @Icon fill.png
+相当于`<title>`和`<link rel="icon" href="..."/>`
 ```
 @Title Fnp标记语言 - 基本语法大全
 @Icon fill.png
+```
+#line;
+## 页面元描述 \id:Description;
+@Description Fnp标记语言基本语法大全页，提供Fnp语法参考。
+```
+@Description Fnp标记语言基本语法大全页，提供Fnp语法参考。
 ```
 #line;
 ## 音频 \id:audio;
@@ -682,5 +695,89 @@ B从下到上2}\bdo
 
 # $
 -caption top
+```
+#line;
+## 替换模板 \id:template;
+对于重复的结构，可以使用替换模板。
+### Fno替换模板
+#template.beg Mod1
+- \col{#ff0000|&{Key}}\col: \BK{#ff0|&{Val}}\BK
+#template.end
+#template_use.beg
+-@ Mod1
+-Key 甲
+-Val 文本1
+#template_use.end
+#template_use.beg
+-@ Mod1
+-Key 乙
+-Val \b{文本2}\b
+#template_use.end
+```
+#template.beg Mod1
+- \col{#ff0000|&{Key}}\col: \BK{#ff0|&{Val}}\BK
+#template.end
+```
+```
+#template_use.beg
+<...使用Fno语法，参数见下方...>
+#template_use.end
+```
+``` mul1 fno
+-@ Mod1
+-Key 甲
+-Val 文本1
+```
+``` mul1 fno
+-@ Mod1
+-Key 乙
+-Val \b{文本2}\b
+```
+上方代码创建了模板`Mod1`，并通过\abbr{一款一维键值对描述语言|Fno}\abbr来使用模板。
+### Fna替换模板
+当然，也可以使用\abbr{一款二维键值对描述语言|Fna}\abbr：
+#template_use_fna.beg
+# $
+-@ Mod1
+
+# 1
+-Key 甲
+-Val 文本1
+
+# 2
+-Key 乙
+-Val \i{文本2}\i
+#template_use_fna.end
+```
+#template_use_fna.beg
+<...使用Fna语法，参数见下方...>
+#template_use_fna.end
+```
+``` mul1 fna
+# $
+-@ Mod1
+
+# 1
+-Key 甲
+-Val 文本1
+
+# 2
+-Key 乙
+-Val \i{文本2}\i
+```
+### 外部Fna文件替换模板
+#template_use_fna_read Mod1 test
+```
+#template_use_fna_read Mod1 test
+```
+其中`f/test.fna`为：
+``` mul1 fna
+# 1
+-Key 甲
+-Val 文本1
+
+# 2
+-Key 乙
+-Val 文本2
 ```
 #line;

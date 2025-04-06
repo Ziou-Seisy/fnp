@@ -1,0 +1,18 @@
+# \icoB:{ico.webp|图标|#570bff};Fnp标记语言 - 小说写作特化 \id:begin;
+#line;
+# 小说文本容器 \id:novel;
+```
+#novel.beg
+...<小说文本>...
+#novel.end
+```
+#novel.beg
+这是一个小说文本容器，是下方语法的作用区域。
+#novel.end
+#line;
+## 专有名词高亮显示 \id:zymcglxs;
+@T 小说 base 叙事性的文学体裁
+```
+@T 小说 base 叙事性的文学体裁
+```
+对小说文本容器中的`小说`进行高亮显示，样式为`FnpText_OT_base`，`title`为`叙事性的文学体裁`。

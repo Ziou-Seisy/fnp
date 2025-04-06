@@ -575,3 +575,23 @@ abbr {
 .OTitle {
 	display: none;
 }
+
+.FnpText_OT {
+	cursor: pointer;
+	position: relative;
+}
+
+.FnpText_OT_base {
+	color: #3e8ab9;
+}
+
+.FnpText_OT_o {
+	color: #000;
+	position: absolute;
+	background-color: #eee;
+	border: solid 1px #000;
+	font-size: smaller;
+	max-width: 50vw;
+	transform: translate(25%, 0);
+	width: max-content;
+}

@@ -7,12 +7,14 @@
 
 .Fnp_Document {
 	width: 100%;
-	padding:0 1em 0 1em;
+	padding: 1em;
 }
 
 
 p,.Hp {
 	text-indent: 2em;
+	line-break: auto;
+	word-break:normal;
 }
 
 .Fnp_Error::before {
@@ -31,8 +33,6 @@ p,.Hp {
 	color: #555;
 	cursor:pointer;
 }
-
-
 
 center {
 	text-align: center;
@@ -215,22 +215,22 @@ ul {
 	text-decoration: #0ff wavy underline;
 }
 
-div:has(> blockquote) {
+.Hbq_b, .Hubq_b {
 	background-color: #ededed;
 	margin: 1rem auto;
 	padding: 1.5rem;
 	border-radius: 0.5rem;
 }
 
-blockquote p::before {
+.Hbq>p::before, .Hubq>p::before {
 	content: "\201C";
 }
 
-blockquote p::after {
+.Hbq>p::after, .Hubq>p::after {
 	content: "\201D";
 }
 
-blockquote+p {
+.Hubq_b>p {
 	text-align: right;
 }
 
@@ -240,18 +240,18 @@ blockquote+p {
 	border-radius: 0.4em;
 }
 
-del,
-ins {
+.Hdel,
+.Hins {
 	display: block;
 	text-decoration: none;
 	position: relative;
 }
 
-del {
+.Hdel {
 	background-color: #fbb;
 }
 
-ins {
+.Hins {
 	background-color: #d4fcbc;
 }
 
@@ -264,6 +264,13 @@ ins {
 }
 .Tbdo_btu {
 	writing-mode:vertical-lr;
+}
+
+.Tbdo_utbl {
+	writing-mode:vertical-lr;
+}
+.Tbdo_btur {
+	writing-mode:vertical-rl;
 }
 
 .detailsBd {
@@ -448,25 +455,33 @@ tfoot th {
 }
 
 .figure_img {
-	border: thin #c0c0c0 solid;
 	display: flex;
+	margin: auto;
+}
+.Tfigure_img {
+	display: inline-flex;
+	margin: 0 0.5em 0 0.5em;
+}
+
+.figure_img,.Tfigure_img {
+	border: thin #c0c0c0 solid;
 	flex-flow: column;
 	padding: 5px;
 	max-width: 100%;
-	margin: auto;
 }
 
-.figure_img>img {
+.figure_img>img,.Tfigure_img>img {
 	width: 100%;
 }
 
-.figure_img>figcaption {
+.figure_img>figcaption,.Tfigure_img>figcaption {
 	background-color: #222;
 	color: #fff;
 	font: italic smaller sans-serif;
 	padding: 3px;
 	text-align: center;
 }
+
 
 video {
 	max-width: 100%;
@@ -557,3 +572,26 @@ abbr {
 	display:none;
 }
 
+.OTitle {
+	display: none;
+}
+
+.FnpText_OT {
+	cursor: pointer;
+	position: relative;
+}
+
+.FnpText_OT_base {
+	color: #3e8ab9;
+}
+
+.FnpText_OT_o {
+	color: #000;
+	position: absolute;
+	background-color: #eee;
+	border: solid 1px #000;
+	font-size: smaller;
+	max-width: 50vw;
+	transform: translate(25%, 0);
+	width: max-content;
+}

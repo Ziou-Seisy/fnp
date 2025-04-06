@@ -105,12 +105,18 @@ var FnpCompilerDefine = {
 		{type: "H5",beg: "\r#5 ",end: '\n'},
 		{type: "H6",beg: "\r#6 ",end: '\n'},
 		{type: "Hp",beg: "\r#p ",end: '\n'},
+		{type: "Tspan",beg: "%{",end: '}%'},
 
 		{type: "Hol",beg: "\r#ol:",end: '\n'},
 		{type: "HolD",beg: "\r#ol+:",end: '\n'},
+		{type: "Hol2",beg: "\r	#ol:",end: '\n'},
+		{type: "HolD2",beg: "\r	#ol+:",end: '\n'},
+		{type: "Hol3",beg: "\r		#ol:",end: '\n'},
+		{type: "HolD3",beg: "\r		#ol+:",end: '\n'},
 		
 		{type: "code_mul",beg: "\r```",end: '```\n'},
 		{type: "code_once",beg: "`",end: '`'},
+		{type: "code_once",beg: "@{",end: '}@'},
 		
 		{type: "color",beg: "\\C{",end: '}\\C'},
 		{type: "bkcolor",beg: "\\BK{",end: '}\\BK'},
@@ -124,6 +130,7 @@ var FnpCompilerDefine = {
 		{type: "a_id_to",beg: "\\to{",end: '}\\to'},
 		{type: "a_",beg: "\\a{",end: '}\\a'},
 		{type: "go",beg: "\\go{",end: '}\\go'},
+		{type: "goto",beg: "\\goto{",end: '}\\goto'},
 		{type: "goback",beg: "\\goback{",end: '}\\goback'},
 		
 		{type: "cite",beg: "\\cite{",end: '}\\cite'},
@@ -146,11 +153,13 @@ var FnpCompilerDefine = {
 		{type: "cm_",beg: "\r#CM ",end: '\n'},
 		{type: "cm_",beg: "\\CM{",end: '}\\CM'},
 		{type: "cm_",beg: "\r#CM.beg\n",end: '\r#CM.end\n'},
+		{type: "cm_",beg: "\r·",end: '\n'},
 		
 		{type: "box",beg: "\r#box.beg\n",end: '\r#box.end\n'},
 		{type: "details",beg: "\r#details.beg ",end: '\r#details.end\n'},
 		{type: "detailsB",beg: "\r#detailsB.beg ",end: '\r#detailsB.end\n'},
 		{type: "detailsB",beg: "\r#detailsBd.beg ",end: '\r#detailsBd.end\n'},
+		{type: "novel",beg: "\r#novel.beg\n",end: '\r#novel.end\n'},
 		
 		{type: "iframe",beg: "\r#iframe ",end: '\n'},
 		
@@ -204,6 +213,10 @@ var FnpCompilerDefine = {
 		
 		{type: "del",beg: "\r#del ",end: '\n'},
 		{type: "ins",beg: "\r#ins ",end: '\n'},
+		{type: "Tdel",beg: "\\del{",end: '}\\del'},
+		{type: "Tins",beg: "\\ins{",end: '}\\ins'},
+		{type: "Tdel",beg: "-{",end: '}-'},
+		{type: "Tins",beg: "+{",end: '}+'},
 		
 		{type: "abbr",beg: "\\abbr{",end: '}\\abbr'},
 		{type: "ot",beg: "\\ot{",end: '}\\ot'},
@@ -223,13 +236,19 @@ var FnpCompilerDefine = {
 		{type: "sub",beg: "\\sub{",end: '}\\sub'},
 		{type: "sup",beg: "\\up{",end: '}\\up'},
 		{type: "sub",beg: "\\down{",end: '}\\down'},
+		{type: "sup",beg: "^{",end: '}^'},
+		{type: "sub",beg: "~{",end: '}~'},
 		
 		{type: "bdo_ltr",beg: "\\bdo{ltr|",end: '}\\bdo'},
 		{type: "bdo_rtl",beg: "\\bdo{rtl|",end: '}\\bdo'},
 		{type: "bdo_utb",beg: "\\bdo{utb|",end: '}\\bdo'},
 		{type: "bdo_btu",beg: "\\bdo{btu|",end: '}\\bdo'},
+		{type: "bdo_utbl",beg: "\\bdo{utbl|",end: '}\\bdo'},
+		{type: "bdo_btur",beg: "\\bdo{btur|",end: '}\\bdo'},
 		
 		{type: "figure_img",beg: "\r#figure_img.beg\n",end: '\r#figure_img.end\n'},
+		{type: "Tfigure_img",beg: "\r\\figure_img.beg\n",end: '\r\\figure_img.end\n'},
+		
 		{type: "Haudio",beg: "\r#audio.beg\n",end: '\r#audio.end\n'},
 		{type: "Hvideo",beg: "\r#video.beg\n",end: '\r#video.end\n'},
 		
@@ -244,11 +263,16 @@ var FnpCompilerDefine = {
 		{type: "HtemplateUseFnaRead",beg:"\r#template_use_fna_read ",end: '\n'},
 			
 		{type: "Hsay",beg: "\r#say ",end: '\n'},
-		{type: "A_T",beg: "\r@T ",end: '\n'},
+		{type: "OT",beg: "\r@T ",end: '\n'},
 		
 		{type: "import",beg: "\r#import ",end: '\n'},
 		
-		{type:"count_chars_only",beg: "\\count_chars_only{",end:"}\\count_chars_only"}
+		{type:"count_chars_only",beg: "\\count_chars_only{",end:"}\\count_chars_only"},
+		
+		
+		{type:"OTitle",beg: "\r@Title ",end:"\n"},
+		{type:"OIcon",beg: "\r@Icon ",end:"\n"},
+		{type:"ODec",beg: "\r@Description ",end:"\n"},
 	],
 	toObj:{
 		H1: ["@Basic"],
@@ -261,6 +285,10 @@ var FnpCompilerDefine = {
 		
 		Hol: ["@TupleF", " ", 2, 0],
 		HolD: ["@TupleF", " ", 2, 0],
+		Hol2: ["@TupleF", " ", 2, 0],
+		HolD2: ["@TupleF", " ", 2, 0],
+		Hol3: ["@TupleF", " ", 2, 0],
+		HolD3: ["@TupleF", " ", 2, 0],
 		
 		code_mul:["@PairExL","\n\r"," ","code_&{text}"," ","code_mul1"],
 		code_once:["@Text"],
@@ -272,6 +300,7 @@ var FnpCompilerDefine = {
 		a_id_to: ["@Pair","|"],
 		a_: ["@TupleF","|",3],
 		go: ["@Pair","|"],
+		goto: ["@Tuple","|",3],
 		goback: ["@Pair","|"],
 		
 		cite: ["@Basic"],
@@ -281,8 +310,8 @@ var FnpCompilerDefine = {
 		download: ["@Pair","|"],
 		downloadpage: ["@Pair","|"],
 		
-		ico: ["@Pair", "|"],
-		icoB: ["@Tuple", "|", 3],
+		ico: ["@TupleF", "|",2,2],
+		icoB: ["@TupleF", "|", 3,3],
 		img: ["@Pair", "|"],
 		img_: ["@Pair", " "],
 		
@@ -293,8 +322,9 @@ var FnpCompilerDefine = {
 		box: ["@Basic"],
 		details:["@TupleF", "\n", 2, 0],
 		detailsB:["@TupleF", "\n", 2, 0],
+		novel: ["@Basic"],
 		
-		iframe: ["@Tuple", " ", 3],
+		iframe: ["@Tuple", " ", 4],
 		
 		d1: ["@Basic"],
 		c1: ["@Basic"],
@@ -326,6 +356,8 @@ var FnpCompilerDefine = {
 		
 		del: ["@Basic"],
 		ins: ["@Basic"],
+		Tdel: ["@Basic"],
+		Tins: ["@Basic"],
 		
 		abbr: ["@Pair", "|"],
 		ot: ["@Pair", "|"],
@@ -348,8 +380,12 @@ var FnpCompilerDefine = {
 		bdo_rtl: ["@Basic"],
 		bdo_utb: ["@Basic"],
 		bdo_btu: ["@Basic"],
+		bdo_utbl: ["@Basic"],
+		bdo_btur: ["@Basic"],
 		
 		figure_img:["@Fno"],
+		Tfigure_img:["@Fno"],
+		
 		Haudio:["@Fno"],
 		Hvideo:["@Fno"],
 		
@@ -358,15 +394,19 @@ var FnpCompilerDefine = {
 		HDoubleColumns: ["@TupleF","\r#DoubleColumns.mid\n",2,0],
 		HDoubleColumnsL: ["@TupleF","\r#DoubleColumnsL.mid\n",2,0],
 		
-		Htemplate:["@TupleF", "\n", 2, 0],
+		Htemplate:["@TupleF", "\n", 2, 2],
 		HtemplateUse:["@Fno"],
 		HtemplateUseFna:["@Fna"],
-		HtemplateUseFnaRead:["@Pair"," "],
+		HtemplateUseFnaRead:["@TupleF"," ",2,2],
 		
 		Hsay: ["@Pair", " "],
-		A_T: ["@Tuple", " ",3],
+		OT: ["@Tuple", " ",3],
 		import:["@Text"],
 		count_chars_only:["@TupleF", "|", 2, 0],
+		
+		OTitle: ["@TextS"],
+		OIcon: ["@TextS"],
+		ODec: ["@TextS"],
 	}
 }
 function FnpCompiler(FnpCompilerDef = FnpCompilerDefine){
@@ -465,6 +505,7 @@ function FnpCompiler(FnpCompilerDef = FnpCompilerDefine){
 		}
 		var df = {
 			"@Text": () => (text => text),
+			"@TextS": () => (text => [text]),
 			"@Clear":() => (() => null),
 			"@Basic":() => DF.basic,
 			"@Pair":(c=' ') => (text)=>{let i = text.indexOf(c); return [text.substring(0, i),DF.basic(text.substring(i + 1))]},
@@ -490,13 +531,13 @@ function FnpCompiler(FnpCompilerDef = FnpCompilerDefine){
 				return {obj: fna.opt.filter(o => o.$!="")};
 			},
 			"@Funcs":(...funcs)=>{
-				let df = funcs[funcs.length-1]
 				let rf = []
-				for (var i = 0; i < funcs.length - 2; i++) {
+				for (var i = 0; i < funcs.length; i++) {
 					let f = funcs[i]
-					if(typeof df?.toObj?.[f?.[0]] === "function") rf.push(df?.toObj?.[f?.[0]](...f.slice(1), undefined, df)??(()=>{}))
-					else console.error("Fnp > 意外！@Funcs链出错", f?.[0], ' is not a function in df.obj.', df)
+					if(typeof df[f[0]] === "function") rf.push(df[f[0]](...f.slice(1))??(()=>{}))
+					else console.error("Fnp > 意外！@Funcs链出错", f[0], ' is not a function in df.obj.', df)
 				}
+				//console.log("Funcs",funcs,df,rf)
 				return function(text){
 					let r = text
 					for (let i = 0; i < rf.length; i++) {
@@ -505,7 +546,9 @@ function FnpCompiler(FnpCompilerDef = FnpCompilerDefine){
 					return r;
 				}
 			},
-			"@FillTable":()=>(fna)=>{
+			"@FillTable":()=>(fna_)=>{
+				//console.log("Fna",fna_)
+				let fna = fna_.obj
 				let fna00 = ""
 				let col = (function(){
 					let r = []
@@ -538,10 +581,11 @@ function FnpCompiler(FnpCompilerDef = FnpCompilerDefine){
 						return line(v)
 					}).filter(x => Array.isArray(x))
 				})()
-				return {
+				//console.log("ta",table,r$)
+				return {obj:{
 					table:table,
 					$:r$
-				}
+				}}
 			},
 			"@V":(index, func, ...c)=>(d)=>{
 				let f = func
@@ -710,8 +754,8 @@ function FnpCompiler(FnpCompilerDef = FnpCompilerDefine){
 		//resetObj2(obj)
 		return r
 	}
-	return (text_old)=>{
-		let ft = `\r${text_old.replace(/\r\n/g, '\u0001').replace(/\n/g, '\u0001').replace(/\r/g, '\u0001').replace(/\\\u0001/g, '').replace(/\u0001/g, '\n\r')}\n`
+	return (text_old, ft_bool = true)=>{
+		let ft = ft_bool?`\r${text_old.replace(/\r\n/g, '\u0001').replace(/\n/g, '\u0001').replace(/\r/g, '\u0001').replace(/\\\u0001/g, '').replace(/\u0001/g, '\n\r')}\n`:text_old
 		let r = FnpCompiler_(ft)
 		let ro = {
 			box:{outb: 0, inb: 0, ine: ft.length, oute: ft.length},
@@ -723,6 +767,13 @@ function FnpCompiler(FnpCompilerDef = FnpCompilerDefine){
 		//console.log(rr)
 		return rr
 	}
+}
+function Fnp_Open (path,obj){
+	let r = [window.location.origin,window.location.pathname,'?fnp=',path]
+	for (let k in obj) {
+		r.push('&');r.push(k);r.push('=');r.push(obj[k])
+	}
+	window.location.href = r.join('')
 }
 var FnpInterpreterDefine = {
 	toHTML:{
@@ -736,30 +787,36 @@ var FnpInterpreterDefine = {
 		H5: ["#Element","h5","Fnp_H5"],
 		H6: ["#Element","h6","Fnp_H6"],
 		Hp: ["#Element","p","Fnp_Hp"],
+		Tspan: ["#Element","span","Fnp_Tspan"],
 		
 		Hol: ["#ElementNesting",[["#ElementArray","div","Hol_arg1",{},{},1],["#ElementArray","div","Hol_text",{},{},2]],["#ElementArray","div","Hol"]],
 		HolD: ["#ElementNesting",[["#ElementArray","div","HolD_arg1",{},{},1],["#ElementArray","div","HolD_text",{},{},2]],["#ElementArray","div","HolD"]],
+		Hol2: ["#ElementNesting",[["#ElementArray","div","Hol_arg1",{},{},1],["#ElementArray","div","Hol_text",{},{},2]],["#ElementArray","div","Hol"],["#Element","li","li_s",{},false],["#Element","ul","ul_",{},false]],
+		HolD2: ["#ElementNesting",[["#ElementArray","div","HolD_arg1",{},{},1],["#ElementArray","div","HolD_text",{},{},2]],["#ElementArray","div","HolD"],["#Element","li","li_s",{},false],["#Element","ul","ul_",{},false]],
+		Hol3: ["#ElementNesting",[["#ElementArray","div","Hol_arg1",{},{},1],["#ElementArray","div","Hol_text",{},{},2]],["#ElementArray","div","Hol"],["#Element","li","li_s",{},false],["#Element","ul","ul_",{},false],["#Element","li","li_s",{},false],["#Element","ul","ul_",{},false]],
+		HolD3: ["#ElementNesting",[["#ElementArray","div","HolD_arg1",{},{},1],["#ElementArray","div","HolD_text",{},{},2]],["#ElementArray","div","HolD"],["#Element","li","li_s",{},false],["#Element","ul","ul_",{},false],["#Element","li","li_s",{},false],["#Element","ul","ul_",{},false]],
 		
-		code_mul:["#ElementNesting",["#ElementArray","code","Hcode",{},{},2],["#ElementArray","pre","code_mul",{},{className:{t:"&{text}",i:1}}]],
+		code_mul:["#ElementNesting",["#ElementArray","code","Hcode",{},{},2,1],["#ElementArray","pre","code_mul",{},{className:{t:"&{text}",i:1}}]],
 		code_once:["#ElementNesting",["#Element","code","Tcode",{},{}],["#Element","span","code_once",{},false]],
 		
 		color: ["#ElementArray","span","Tcolor",{},{style: {o: {color: {t:"&{text}", i:1}}}}, 2],
 		bkcolor: ["#ElementArray","span","Tbkcolor",{},{style: {o: {backgroundColor: {t:"&{text}", i:1}}}}, 2],
 		
 		a_id_at: ["#ElementOnlyArgNotInner","span","a_id_at",{},{id:{t:"fnp_id_at_&{text}",i:1}}],
-		a_id_to: ["#ElementArray","span","fnp_a_id_to",{},{title:{t:"fnp_id_at_&{text}",i:1}},2],
+		a_id_to: ["#ElementArray","span","fnp_a_id_to Tto",{},{to_id:{t:"",i:1,my:true}},2],
 		a_: ["#ElementArray","a","T_a",{},{href:{t:"&{text}",i:1}},2],
 		//go: ["@ElementArray","<span class=\"fnp_a_id_to fnp_a_go_to\" onclick=\"Fnp_Open?.(\'&{1}\')\">&{2}</span>"],
 		//goback: ["@ElementArray","<span class=\"fnp_a_id_to fnp_a_go_to\" onclick=\"Fnp_Back?.(\'&{1}\')\">&{2}</span>"],
-		go: ["#ElementArray","span","fnp_a_id_to fnp_a_go_to",{},{title:{t:"&{text}",i:1}},2],
-		goback: ["#ElementArray","span","fnp_a_id_to fnp_a_go_to",{},{title:{t:"&{text}",i:1}},2],
+		go: ["#ElementArray","span","fnp_a_id_to fnp_a_go_to Tgo",{},{fnp:{t:"",i:1,my:true}},2],
+		goto: ["#ElementArray","span","fnp_a_id_to fnp_a_go_to Tgoto",{},{fnp:{t:"",i:1,my:true},to_id:{t:"",i:2,my:true}},3],
+		goback: ["#ElementArray","span","fnp_a_id_to fnp_a_go_to Tgoback",{},{goback:{t:"",i:1,my:true}},2],
 		
 		cite: ["#Element","cite", "Hcite"],
 		q: ["#Element","q","Hq"],
 		//bq: ["@ElementArray","<div><blockquote cite=\"&{1}\"><p>&{2}</p></blockquote></div>"],
 		//ubq: ["@ElementArray","<div><blockquote cite=\"&{1}\"><p>&{3}</p></blockquote><p>&{2}</p></div>"],
-		bq: ["#ElementNesting",["#ElementArray","blockquote","Hbq",{},{},2],["#ElementArray","blockquote","Hbq",{},{cite:{t:"&{text}",i:1}},0],["#Element","span","Hbq_b",{},false]],
-		ubq: ["#ElementNesting",["#ElementArray","blockquote","Hubq",{},{},3],[["#ElementArray","blockquote","Hubq",{},{cite:{t:"&{text}",i:1}},0],["#ElementArray","p","Hubqp",{},{},2]],["#Element","span","Hubq_b",{},false]],
+		bq: ["#ElementNesting",["#ElementArray","p","Hbq_in",{},{},2],["#ElementArray","blockquote","Hbq",{},{cite:{t:"&{text}",i:1}},0],["#Element","div","Hbq_b",{},false]],
+		ubq: ["#ElementNesting",["#ElementArray","p","Hubq_in",{},{},3],[["#ElementArray","blockquote","Hubq",{},{cite:{t:"&{text}",i:1}},0],["#ElementArray","p","Hubqp",{},{},2]],["#Element","div","Hubq_b",{},false]],
 		
 		download: ["#ElementArray","a","Tdownload",{download:""}, {href:{t:"&{rc}/&{text}",i:1}},2],
 		downloadpage: ["#ElementArray","a","Tdownloadpage",{download:""}, {href:{t:"&{page}/&{text}",i:1}},2],
@@ -782,6 +839,7 @@ var FnpInterpreterDefine = {
 		//detailsB:["@ElementArray","<details class=\"detailsBd\"><summary>&{1}</summary>&{2}</details>"],
 		details:["#ElementNesting",["#ElementArray","summary","Tdetails_summary",{},{},1],["#ElementArray","details","Tdetails",{},{},2]],
 		detailsB:["#ElementNesting",["#ElementArray","summary","TdetailsB_summary",{},{},1],["#ElementArray","details","TdetailsB detailsBd",{},{},2]],
+		novel:["#Element","div","Bnovel"],
 		
 		iframe: ["#ElementArray","iframe","Hiframe",{},{src:{t:"&{rc}/&{text}",i:1},title:2,height:4,width:3},0],
 		
@@ -819,6 +877,9 @@ var FnpInterpreterDefine = {
 		
 		del: ["#Element","del","Hdel"],
 		ins: ["#Element","ins","Hins"],
+		Tdel: ["#Element","del","Tdel"],
+		Tins: ["#Element","ins","Tins"],
+		
 		
 		abbr: ["#ElementArray","abbr","abbr",{},{title:{t:"&{text}",i:1}},2],
 		ot: ["#ElementArray","abbr","abbr_ot",{},{title:{t:"&{text}",i:1}},2],
@@ -843,47 +904,332 @@ var FnpInterpreterDefine = {
 		//bdo_btu: ["@Element","<span style=\"writing-mode:vertical-lr;\"><bdo dir=\"rtl\">&{text}</bdo></span>"],
 		bdo_utb: ["#ElementNesting",["#Element","bdo","Tbdo_utb_i",{dir:"ltr"}],["#Element","span","Tbdo_utb",{},0]],
 		bdo_btu: ["#ElementNesting",["#Element","bdo","Tbdo_btu_i",{dir:"rtl"}],["#Element","span","Tbdo_btu",{},0]],
+		bdo_utbl: ["#ElementNesting",["#Element","bdo","Tbdo_utbl_i",{dir:"ltr"}],["#Element","span","Tbdo_utbl",{},0]],
+		bdo_btur: ["#ElementNesting",["#Element","bdo","Tbdo_btur_i",{dir:"rtl"}],["#Element","span","Tbdo_btur",{},0]],
 		
-		figure_img:["@ElementKv","<figure class=\"figure_img\" style=\"&{width}\"><img src=\"&{rc}/&{src}\" alt=\"&{alt}\" /><figcaption>&{title}</figcaption></figure>",{width:{replace:"width: &{text};", empty:""}}],
-		Haudio:["@ElementKvP","<audio class=\"Haudio\" &{k-v}>&{alt}</audio>", {alt:0}],
-		Hvideo:["@ElementKvP","<video class=\"Hvideo\" &{k-v}>&{track}&{alt}</video>", {alt:0, track:{replace: "<track default kind=\"&{3}\" srclang=\"&{2}\" src=\"&{1}\" />", empty:"", func:["@Split"," "]}}],
+		//figure_img:["@ElementKvP","<figure class=\"figure_img\" style=\"&{width}\"><img src=\"&{rc}/&{src}\" alt=\"&{alt}\" /><figcaption>&{title}</figcaption></figure>",{width:{replace:"width: &{text};", empty:""}}],
+		figure_img:["#ElementNesting",[["#ElementObj","img","figure_img_img",{},{src:{t:"&{rc}/&{text}",k:"src"},alt:"alt"}],["#ElementObj","figcaption","figure_img_figcaption",{},{},"title"]],["#ElementObj","figure","figure_img",{},{style:{o:{width:"width"}}},0]],
+		Tfigure_img:["#ElementNesting",[["#ElementObj","img","Tfigure_img_img",{},{src:{t:"&{rc}/&{text}",k:"src"},alt:"alt"}],["#ElementObj","figcaption","Tfigure_img_figcaption",{},{},"title"]],["#ElementObj","figure","Tfigure_img",{},{style:{o:{width:"width"}}},0]],
 		
-		Htable:["@Table","<table><caption style=\"&{1}\">&{2}</caption>&{table}</table>",{"1":{key: "caption",empty: "caption-side:top;",replace:"caption-side:&{text};",sp:{"none":'display:none;'}},"2":{key:"name"}},{block:"<thead><tr>&{text}</tr></thead>",once:"<th scope=\"col\">&{text}</th>"},{block:"<tbody>&{text}</tbody>",line:"<tr>&{text}</tr>",beg:"<th scope=\"row\">&{text}</th>",once:"<td>&{text}</td>",}],
+		Haudio:["#ElementObj","audio","Haudio",{},true,"alt"],
+		//Hvideo:["#ElementKvP","<video class=\"Hvideo\" &{k-v}>&{track}&{alt}</video>", {alt:0, track:{replace: "<track default kind=\"&{3}\" srclang=\"&{2}\" src=\"&{1}\" />", empty:"", func:["@Split"," "]}}],
+		Hvideo:["#ElementNesting",["#ElementObj","track","Hvideotrack Frp",{default:"default", rep:["src srclang kind"],split:[" "]},{val:{t:"",k:"track",my:true}},0],["#ElementObj","video","Hvideo",{},true,0]],
+		
+		Htable:['#ElementHTML','div','Htable',{},["@Table","<table><caption style=\"&{1}\">&{2}</caption>&{table}</table>",{"1":{key: "caption",empty: "caption-side:top;",replace:"caption-side:&{text};",sp:{"none":'display:none;'}},"2":{key:"name"}},{block:"<thead><tr>&{text}</tr></thead>",once:"<th scope=\"col\">&{text}</th>"},{block:"<tbody>&{text}</tbody>",line:"<tr>&{text}</tr>",beg:"<th scope=\"row\">&{text}</th>",once:"<td>&{text}</td>",}]],
 	
-		HDoubleColumns: ["@ElementArray","<div class=\"HDoubleColumns\"><div class=\"HDoubleColumns_arg1\">&{1}</div><div class=\"HDoubleColumns_arg1\">&{2}</div></div>"],
-		HDoubleColumnsL: ["@ElementArray","<div class=\"HDoubleColumnsL\"><div class=\"HDoubleColumnsL_arg1\">&{1}</div><div class=\"HDoubleColumnsL_arg1\">&{2}</div></div>"],
+		//HDoubleColumns: ["@ElementArray","<div class=\"HDoubleColumns\"><div class=\"HDoubleColumns_arg1\">&{1}</div><div class=\"HDoubleColumns_arg1\">&{2}</div></div>"],
+		//HDoubleColumnsL: ["@ElementArray","<div class=\"HDoubleColumnsL\"><div class=\"HDoubleColumnsL_arg1\">&{1}</div><div class=\"HDoubleColumnsL_arg1\">&{2}</div></div>"],
+		HDoubleColumns: ["#ElementNesting",[["#ElementArray","div","HDoubleColumns_arg1",{},{},1],["#ElementArray","div","HDoubleColumns_arg2",{},{},2]],["#Element","div","HDoubleColumns",{},false]],
+		HDoubleColumnsL: ["#ElementNesting",[["#ElementArray","div","HDoubleColumnsL_arg1",{},{},1],["#ElementArray","div","HDoubleColumnsL_arg2",{},{},2]],["#Element","div","HDoubleColumnsL",{},false]],
 		
-		Htemplate:["@Template"],
-		HtemplateUse:["@TemplateUseFno"],
-		HtemplateUseFna:["@TemplateUseFna"],
-		HtemplateUseFnaRead:["@ElementArray","<div class=\"HtemplateUseFnaRead\" mod=\"&{1}\" src=\"&{2}\" base=\"&{page}\"></div>"],
+		Htemplate:["#Save","template"],
+		HtemplateUse:["#ElementObj","div","HtemplateUse",{lazy: true},1,0],
+		HtemplateUseFna:["#ElementObj","div","HtemplateUseFna",{lazy: true},1,0],
+		HtemplateUseFnaRead:["#ElementArray","div","HtemplateUseFnaRead",{base:["&{page}"]},{mod:{t:"",i:1,my:true},fna:{t:"",i:2,my:true}},0],
 		
 		//Hsay: ["@ElementArray","<div class=\"Hsay\"><div class=\"Hsay_1\">&{1}</div><div class=\"Hsay_2\">&{2}</div></div>"],
 		Hsay: ["#ElementNesting",[["#ElementArray","div","Hsay_1",{},{},1],["#ElementArray","div","Hsay_2",{},{},2]],["#Element","div","Hsay",{},0]],
-		A_T: ["#ElementArray",'div','A_T',{rep:{t:"&{text}",i:1},type:{t:"&{text}",i:2},text:{t:"&{text}",i:3}},0],
+		OT: ["#ElementArray",'div','OT',{},{rep:{t:"",i:1,my:true},type:{t:"",i:2,my:true},text:{t:"",i:3}},0],
 		import:["@Element","<div style=\"display:none;\" class=\"import_fnp\" src=\"&{text}\"> </div>"],
 		count_chars_only:["@ElementArray","<span class=\"count_chars_only\" beg=\"&{1}\" end=\"&{2}\"></span>"],
+		
+		OTitle: ["#ElementArray","div","OTitle",{},{title:1},0],
+		OIcon: ["#ElementArray","div","OIcon",{},{src:{t:"&{rc}/&{text}",i:1,my:true}},0],
+		ODec: ["#ElementArray","div","ODec",{},{dec:{t:"&{rc}/&{text}",i:1,my:true}},0],
 	},
 	toHTML_rset:[
 		{
-			className:"fnp_a_id_to",
+			className:"Tto",
 			func:(vb=document.body)=>{
 				vb.addEventListener('click',()=>{
-					let p = document.getElementById(vb.title)
+					let to_id = vb.getAttribute('to_id')
+					let p = document.getElementById(`fnp_id_at_${to_id}`)
 					if(typeof p !== 'object' || !p){
 						console.error('Fnp > 意外！获取了一个不正常数据，不是对象：', p, vb)
 						return
 					}
-					if(typeof p.scrollIntoView === 'function')p.scrollIntoView();
+					if(typeof p.scrollIntoView === 'function'){
+						p.scrollIntoView();
+						//let urlParams = new URLSearchParams(window.location.search)
+						//urlParams.set('to', to_id)
+						//console.log(urlParams)
+						let url = new URL(window.location.href)
+						let urlParams = new URLSearchParams(url.search)
+						urlParams.set('to', to_id)
+						url.search = urlParams.toString()
+						window.history.pushState({}, '', url);
+					}
 					else {
 						console.error('Fnp > 意外！获取了一个不正常数据，不是函数：', p.scrollIntoView, p, vb)
 					}
 				})
 			}
+		},
+		{
+			className:"Tgoto",
+			func:(vb=document.body)=>{
+				vb.addEventListener('click',()=>{
+					let path = vb.getAttribute('fnp')
+					let to = vb.getAttribute('to_id')
+					Fnp_Open(path, {to: to})
+				})
+			}
+		},
+		{
+			className:"Tgo",
+			func:(vb=document.body)=>{
+				vb.addEventListener('click',()=>{
+					let path = vb.getAttribute('fnp')
+					Fnp_Open(path)
+				})
+			}
+		},
+		{
+			className:"Tgoback",
+			func:(vb=document.body)=>{
+				vb.addEventListener('click',()=>{
+					let i = vb.getAttribute('goback')
+					if(typeof i !== 'number' || i<=0){
+						console.error('Fnp > 意外！获取了一个不正常数据，不是数值或不是正整数：', i, vb)
+					}
+					window.history.go(-i);
+				})
+			}
+		},
+		{
+			className:"Hcode",
+			func:(vb=document.body)=>{
+				//console.log([vb, vb.innerText,vb.textContent])
+				//Array.from(vb.getElementsByTagName('br')).forEach((v,i)=>{if(i&1||!i)v.remove()})
+				if(vb.innerHTML[0]=='\n')vb.innerHTML = vb.innerHTML.substring(1)
+				vb.innerHTML = vb.innerHTML.replaceAll('\\;','')
+			}
+		},
+		{
+			className:"code_fno",
+			func:(vb=document.body)=>{
+				let v = vb.getElementsByTagName('code')[0]
+				let r = Fno_Interpreter.interpreter_array(v.innerHTML.replaceAll('<br>','\n').replaceAll('<br/>','\n'))
+				let t = {}
+				let rh = r.reverse().map(i => {
+					if (!t.hasOwnProperty(i.key)) {
+						t[i.key] = i.val
+						return `<div class="fno_key">-${i.key}</div> <div class="fno_val">${i.val}</div> `
+					}
+					return `<div class="fno_key fno_warn">-${i.key}</div> <div class="fno_val">${i.val}</div> `
+				}).reverse()
+				v.innerHTML = `${rh.join('\n')}`
+			}
+		},
+		{
+			className:"code_fna",
+			func:(vb=document.body)=>{
+				let v = vb.getElementsByTagName('code')[0]
+				let obj = Fna_Interpreter.interpreter(v.innerHTML.replaceAll('<br>','\n').replaceAll('<br/>','\n'))
+				let r = obj.opt
+				let g = i => {
+						return `<div class="fna_key">-${i.key}</div> <div class="fno_val">${i.val}</div> `
+				}
+				let f = o => {
+					if(!o){
+						return ""
+					}
+					let rr = []
+					for (let k in o) {
+						if(k=='$')continue;
+						rr.push(g({
+							key: k,
+							val: o[k]
+						}))
+					}
+					let rrr = rr.join('<br/>')
+					if(rrr!="")return `<br/>${rrr}`
+					return ""
+				}
+				let rh = []
+				for (let i = 0; i < r.length; i++) {
+					if(r[i].$=="")continue;
+					rh.push(`<div class="fna_name"># ${r[i].$}</div>${f(r[i])}<br/>`)
+				}
+				v.innerHTML = `${rh.join('<br/>')}`
+			}
+		},
+		{
+			className:"OTitle",
+			func:(vb=document.body)=>{
+				let title = vb.getAttribute('title')
+				document.title = title;//console.log(title)
+			}
+		},{
+			className:"OIcon",
+			func:(vb=document.body)=>{
+				let src = vb.getAttribute('src')
+				let link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+				link.rel = 'icon';
+				link.href = src;
+				document.getElementsByTagName('head')[0].appendChild(link);
+			}
+		},{
+			className:"ODec",
+			func:(vb=document.body)=>{
+				let dec = vb.getAttribute('dec')
+				let ele = document.querySelector("meta[name*='description']") || document.createElement('meta');
+				ele.name = 'description';
+				ele.content = dec;
+				document.getElementsByTagName('head')[0].appendChild(ele);
+			}
+		},{
+			className:"Frp",
+			func:(vb=document.body)=>{
+				let rep = vb.getAttribute('rep')
+				let split = vb.getAttribute('split')
+				let val = vb.getAttribute('val')
+				let reps = rep.split(split)
+				let vals = val.split(split)
+				vals.forEach((v,i)=>vb.setAttribute(reps[i],v))
+			}
+		},
+		{
+			className:"HtemplateUse",
+			func:(vb=document.body)=>{
+				let fno = vb.saved
+				let tmp_ = fno['@']
+				if(typeof fnp_user['template'] !== 'object'){
+					if(vb.getAttribute('lazy'))return 1;
+					console.error("fnp > 模板存储区不存在（且非lazy语法）:",tmp_,'template',fnp_user['template'])
+				}
+				if(!(tmp_ in fnp_user['template'])){
+					if(vb.getAttribute('lazy'))return 1;
+					console.error("fnp > 模板不存在（且非lazy语法）:",tmp_,fnp_user['template'])
+				}
+				let tmp = fnp_user['template'][tmp_]
+				for (let k in fno) {
+					let kr = `&{${k}}`
+					tmp = tmp.replaceAll(kr, fno[k])
+				}
+				let cobj = fnp_user.fnp.compiler(tmp,0)
+				let ele = fnp_user.fnp.interpreter(cobj)
+				ele.main.className = "HtemplateUse_Doc"
+				vb.appendChild(ele.main)
+				//console.log(fno,tmp,cobj,ele)
+			}
+		},
+		{
+			className:"HtemplateUseFna",
+			func:(vb=document.body)=>{
+				let fna = vb.saved
+				let $_ = fna.filter(v=>v['$']=='$')[0]
+				let tmp_ = $_['@']
+				if(typeof fnp_user['template'] !== 'object'){
+					if(vb.getAttribute('lazy'))return 1;
+					console.error("fnp > 模板存储区不存在（且非lazy语法）:",tmp_,'template',fnp_user['template'])
+				}
+				if(!(tmp_ in fnp_user['template'])){
+					if(vb.getAttribute('lazy'))return 1;
+					console.error("fnp > 模板不存在（且非lazy语法）:",tmp_,fnp_user['template'])
+				}
+				let tmp = fnp_user['template'][tmp_]
+				let r = fna.filter(v=>v['$']!='$').map(fno=>{
+					let r = tmp;
+					for (let k in fno) {
+						let kr = `&{${k}}`
+						r = r.replaceAll(kr, fno[k])
+					}
+					let cobj = fnp_user.fnp.compiler(r,0)
+					let ele = fnp_user.fnp.interpreter(cobj)
+					ele.main.className = "HtemplateUseFna_Doc"
+					return ele.main
+				})
+				r.forEach(v => vb.appendChild(v))
+				//console.log(fna,$_,tmp_,tmp,r)
+			}
+		},
+		{
+			className:"HtemplateUseFnaRead",
+			func:(()=>{
+				return (vb=document.body)=>{
+					let base = vb.getAttribute('base')
+					let mod = vb.getAttribute('mod')
+					let fna_ = vb.getAttribute('fna')
+					let tmp_ = mod
+					if(typeof fnp_user['template'] !== 'object'){
+						if(vb.getAttribute('lazy'))return 1;
+						console.error("fnp > 模板存储区不存在（且非lazy语法）:",tmp_,'template',fnp_user['template'])
+					}
+					if(!(tmp_ in fnp_user['template'])){
+						if(vb.getAttribute('lazy'))return 1;
+						console.error("fnp > 模板不存在（且非lazy语法）:",tmp_,fnp_user['template'])
+					}
+					let tmp = fnp_user['template'][tmp_]
+					let fna_src = base? `${base}/${fna_}.fna` : `${fna_}.fna`;
+					FnFileSys.read(fna_src, (text)=>{
+						let fna = Fna_Interpreter.interpreter(text).opt.filter(v=>v.$)
+						let eles = fna.map(fno=>{
+							let r = tmp;
+							for (let k in fno) {
+								let kr = `&{${k}}`
+								r = r.replaceAll(kr, fno[k])
+							}
+							let cobj = fnp_user.fnp.compiler(r,0)
+							let ele = fnp_user.fnp.interpreter(cobj)
+							ele.main.className = "HtemplateUseFna_Doc"
+							return ele.main
+						})
+						eles.forEach(v=>vb.appendChild(v))
+					})
+				}
+			})()
+		},
+		{
+			className:"OT",
+			func:(vb=document.body)=>{
+				let rep = vb.getAttribute('rep')
+				let text = vb.text
+				let type = vb.getAttribute('type')
+				setTimeout(()=>{
+					Array.from(document.getElementsByClassName("Bnovel")).forEach(v=>{
+						Array.from(v.getElementsByClassName('FnpText')).forEach(p => {
+							let sp = p.innerHTML.replaceAll('<br>','\n').replaceAll('<br/>','\n').split(new RegExp(`(${rep})`, "g"))
+							let r = sp.map(v=>{
+								if(v!=rep){
+									let ele = document.createElement('span')
+									ele.className = 'FnpText'
+									ele.innerText = v
+									return ele
+								}else{
+									let ele = document.createElement('span')
+									ele.className = `FnpText_OT FnpText_OT_${type}`
+									ele.innerText = v
+									ele.setAttribute('title_', text)
+									let elea = document.createElement('div')
+									elea.className = `FnpText_OT_o FnpText_OT_${type}_o`
+									elea.elea = 1
+									elea.innerText = text
+									elea.style.display = 'none'
+									ele.appendChild(elea)
+									ele.addEventListener('click',(e)=>{
+										if (e.target.elea)return;
+										console.log(elea.style.display,elea.style.display=='none')
+										elea.style.display = (elea.style.display=='none')?'block':'none'
+										console.log(elea.style.display)
+									})
+									return ele
+								}
+							})
+							p.className = 'FnpText_d'
+							p.innerHTML = ''
+							r.forEach(x => p.appendChild(x))
+							console.log(p,p.innerHTML,rep,vb,type,text,sp,r)
+						})
+					})
+				},100)
+			}
 		}
 	]
 }
-var fnp_template = {}
+var fnp_template = {}//unused
+var fnp_user = {}
+var rset = function(){console.error("Fnp > 意外！rset声明而未定义")}
 function FnpInterpreter(setting={}, FnpInterpreterDef = FnpInterpreterDefine, doctype = "toHTML"){
 	let DF = {
 		path_reset:function(text = ""){
@@ -952,6 +1298,8 @@ function FnpInterpreter(setting={}, FnpInterpreterDef = FnpInterpreterDefine, do
 				return DF.path_reset(r);
 			}),
 			"@Table":(HTML_Box, rep_Box, head_Box, line_Box)=>(obj)=>{
+				//let obj = objo.obj
+				//console.log(obj);
 				let rHTML = HTML_Box
 				for (let it in rep_Box) {
 					let p = rep_Box[it]
@@ -1056,12 +1404,13 @@ function FnpInterpreter(setting={}, FnpInterpreterDef = FnpInterpreterDefine, do
 					return text.replaceAll('\n\r','\u0001').replaceAll('\n','\u0001').replaceAll('\r','').replaceAll('\u0001','\r\n')
 				}
 				let ele = document.createElement('span')
+				ele.className = 'FnpText'
 				if(typeof text === 'string') ele.innerText = rf(text)
 				else if(Array.isArray(text)) ele.innerText = text.map(rf).join('')
 				else console.error("Fnp > 解释器意外！不是字符串或数组", text)
 				return ele
 			},
-			"#ElementArray":(tag, className, obj={}, objRep={}, text_i=0)=>(arg)=>{
+			"#ElementArray":(tag, className, obj={}, objRep={}, text_i=0,text_pos=0)=>(arg)=>{
 				try{
 					var ele = document.createElement(tag)
 				}catch(e){
@@ -1069,14 +1418,15 @@ function FnpInterpreter(setting={}, FnpInterpreterDef = FnpInterpreterDefine, do
 				}
 				ele.className = className
 				for(let k in obj){
-					ele[k] = obj[k]
+					if(Array.isArray(obj[k])) ele.setAttribute(k, DF.path_reset(obj[k][0]))
+					else ele[k] = DF.path_reset(obj[k])
 				}
 				function rq(ele, objRep, b = []){
 					for(let k in objRep){
 						//console.log(11, arg, [objRep[k].i-1], k)
 						if(typeof objRep[k] === 'number'){
 							if(objRep[k] > arg.length){
-								console.error('Fnp > 意外！objRep[k] > arg.length',objRep[k],arg.length)
+								console.error('Fnp > 意外！objRep[k] > arg.length',objRep[k],arg.length,objRep,arg,tag)
 								continue;
 							}
 							ele[k] = DF.path_reset(arg[objRep[k]-1])
@@ -1100,7 +1450,14 @@ function FnpInterpreter(setting={}, FnpInterpreterDef = FnpInterpreterDefine, do
 							console.error('Fnp > 意外！objRep[k].i > arg.length',objRep[k].i,arg.length)
 							continue;
 						}
-						ele[k] = DF.path_reset(objRep[k].t.replaceAll('&{text}',arg[objRep[k].i-1]))
+						let val = (objRep[k].t === '')? arg[objRep[k].i-1]:DF.path_reset(objRep[k].t.replaceAll('&{text}',arg[objRep[k].i-1]))
+						if(!objRep[k].my){
+							ele[k] = val
+						}
+						else {
+							//console.log(k,val,arg[objRep[k].i-1])
+							ele.setAttribute(k, val)
+						}
 					}
 				}
 				rq(ele, objRep)
@@ -1118,7 +1475,10 @@ function FnpInterpreter(setting={}, FnpInterpreterDef = FnpInterpreterDefine, do
 					}
 				}
 				else if(typeof arg[text_i-1] === 'string'){
-					ele.innerText = arg[text_i-1]
+					if(text_pos == 0)ele.innerText = arg[text_i-1]
+					else if(text_pos == 1){
+						ele.innerHTML = arg[text_i-1].replaceAll('\n\r','<br/>')
+					}
 				}
 				else console.error("Fnp > 意外！不是数组或字符串", arg, arg[text_i-1],text_i)
 				return ele
@@ -1162,6 +1522,114 @@ function FnpInterpreter(setting={}, FnpInterpreterDef = FnpInterpreterDefine, do
 					os = vss[i]
 				}
 				return os
+			},
+			"#ElementObj":(tag, className, obj={}, objRep={}, text_i=0)=>(arg)=>{
+				try{
+					var ele = document.createElement(tag)
+				}catch(e){
+					return console.error("Fnp > 解释器意外！document.createElement(tag)出错，tag:",tag)
+				}
+				ele.className = className
+				for(let k in obj){
+					if(Array.isArray(obj[k])) ele.setAttribute(k, obj[k][0])
+					else ele[k] = obj[k]
+				}
+				function rq(ele, objRep, b = []){
+					for(let k in objRep){
+						if(typeof objRep[k] === 'string'){
+							ele[k] = DF.path_reset(arg[objRep[k]])
+							continue
+						}
+						if(typeof objRep[k] !== 'object'){
+							return console.error("Fnp > 意外！不是对象", objRep[k],objRep)
+						}
+						if(typeof objRep[k].o === 'object'){
+							if(typeof ele[k] !== 'object')ele[k] = {}
+							rq(ele[k], objRep[k].o, [k,...b])
+							continue
+						}
+						if(typeof objRep[k].k !== 'string'){
+							return console.error("Fnp > 意外！不是字符串", objRep[k].k, objRep[k], objRep)
+						}
+						if(typeof objRep[k].t !== 'string'){
+							return console.error("Fnp > 意外！不是字符串", objRep[k].t, objRep)
+						}
+						let val = (objRep[k].t === '')? arg[objRep[k].k]:DF.path_reset(objRep[k].t.replaceAll('&{text}',arg[objRep[k].k]))
+						if(!objRep[k].my){
+							ele[k] = val
+						}
+						else {
+							//console.log(k,val,arg[objRep[k].i-1])
+							ele.setAttribute(k, val)
+						}
+					}
+				}
+				if(typeof objRep === 'object')rq(ele, objRep)
+				else if(typeof objRep === 'boolean'){
+					for (let k in arg) {
+						let val = arg[k]
+						if(val == '~')continue;
+						if(!objRep){
+							ele[k] = val
+						}
+						else {
+							//console.log(k,val,arg[objRep[k].i-1])
+							let kk = k;
+							if(kk=='@')kk='__at__'
+							ele.setAttribute(kk, val)
+						}
+					}
+				}
+				else if(typeof objRep === 'number'){
+					if(objRep == 1){
+						ele.saved = arg
+					}else{
+						return console.error("Fnp > 意外！未定义objRep==", objRep)
+					}
+				}
+				if(!text_i || text_i === ''){
+					return ele
+				}
+				if(Array.isArray(arg[text_i])){
+					let content = arg[text_i].map(Interpreter);
+					try{
+						content.forEach(v => ele.appendChild(v))
+					}
+					catch(e){
+						console.error("Fnp > 意外！content.forEach(v => ele.appendChild(v))出错", content)
+					}
+				}
+				else if(typeof arg[text_i] === 'string'){
+					ele.innerText = arg[text_i]
+				}
+				else console.error("Fnp > 意外！不是数组或字符串", arg, arg[text_i],text_i)
+				return ele
+			},
+			'#ElementHTML':(tag,className,obj,func)=>(...a)=>{
+				let html = df[func[0]](...func.slice(1))(...a)
+				try{
+					var ele = document.createElement(tag)
+				}catch(e){
+					return console.error("Fnp > 解释器意外！document.createElement(tag)出错，tag:",tag)
+				}
+				ele.className = className
+				for(let k in obj){
+					if(Array.isArray(obj[k])) ele.setAttribute(k, obj[k][0])
+					else ele[k] = obj[k]
+				}
+				ele.innerHTML = html;
+				//console.log(ele,a,func[0],df[func[0]](...func.slice(1))(...a))
+				return ele
+			},
+			'#Save':(type)=>(a)=>{
+				if(!(type in fnp_user)) fnp_user[type] = {}
+				if(typeof fnp_user[type] !== 'object'){
+					console.error("Fnp > #Save正在修改一个已存在且不符合要求的属性：",type,fnp_user)
+					return;
+				}
+				fnp_user[type][a[0]] = a[1]
+				//console.log(fnp_user,a)
+				return null
 			}
 		}
 		for (let k in p) {
@@ -1199,6 +1667,9 @@ function FnpInterpreter(setting={}, FnpInterpreterDef = FnpInterpreterDefine, do
 		if('args' in obj){
 			return f(obj.args)
 		}
+		if('obj' in obj){
+			return f(obj.obj)
+		}
 		for(let k in obj){
 			if(k != 'type'){
 				console.error("Fnp > 意外！存在除type项外项", obj)
@@ -1207,11 +1678,18 @@ function FnpInterpreter(setting={}, FnpInterpreterDef = FnpInterpreterDefine, do
 		}
 		return f()
 	}
-	function rset(ele=document.body, FnpInterpreterDef, doctype){
+	rset = function(ele=document.body, FnpInterpreterDef, doctype){
 		let rs = FnpInterpreterDef[`${doctype}_rset`]
 		if(!Array.isArray(rs)) return;
 		rs.forEach(fo => {
-			Array.from(ele.getElementsByClassName(fo.className)).forEach(fo.func)
+			Array.from(ele.getElementsByClassName(fo.className)).filter(v=>{
+				let used = v.getAttribute('rset_used')
+				//console.log(v,used)
+				return !used
+			}).forEach(v=>{
+				let r = fo.func(v)
+				if(!r)v.setAttribute('rset_used',true)
+			})
 		})
 	}
 	return (obj)=>{
@@ -1230,6 +1708,7 @@ function Fnp(FnpSetting){
 	if(typeof FnpSetting.index !== "string" || FnpSetting.index == "") return console.error("Fnp> 请传入字符串index项即默认.fnp文件。")
 	if(typeof FnpSetting.box !== "object") return console.error("Fnp> 请传入对象box项即需更新元素。")
 	if(typeof FnpSetting.box.main !== "object") return console.error("Fnp> 请传入元素对象box.main项即主要需更新元素。")
+	fnp_user.FnpSetting = FnpSetting
 	
 	function make_page_path(path){
 		return FnpSetting.pages==""?path : `${FnpSetting.pages}/${path}.fnp`
@@ -1244,7 +1723,7 @@ function Fnp(FnpSetting){
 	}
 	var fnpCompiler = FnpCompiler()
 	var fnpInterpreter = FnpInterpreter(FnpSetting)
-	function Fnp_Open_Page(path){
+	function Fnp_Open_Page(path,callback){
 		FnFileSys.read(make_page_path(path), (text)=>{
 			if(!text){
 				for (let k in FnpSetting.box) {
@@ -1257,16 +1736,44 @@ function Fnp(FnpSetting){
 			let fnpObj = fnpCompiler(text)
 			let fnpHTMLs = fnpInterpreter(fnpObj)
 			make_element(fnpHTMLs)
+			callback()
 		})
 	}
-	return {
+	let return_ = {
 		compiler:fnpCompiler,
 		interpreter:fnpInterpreter,
 		run:()=>{
 			let urlParams = new URLSearchParams(window.location.search);
 			let page = urlParams.get('fnp');
-			if(page) Fnp_Open_Page(page);
-			else Fnp_Open_Page(FnpSetting.index);
+			let to_id = urlParams.get('to');
+			let lazy = urlParams.get('lazy')
+			function callback(){
+				if(to_id){
+					let p = document.getElementById(`fnp_id_at_${to_id}`)
+					if(typeof p !== 'object' || !p || lazy){
+						setTimeout(()=>{
+							p = document.getElementById(`fnp_id_at_${to_id}`)
+							if(typeof p !== 'object' || !p){
+								console.error('Fnp > 意外！获取了一个不正常数据，不是对象：', p, to_id)
+								return;
+							}
+							if(typeof p.scrollIntoView === 'function')p.scrollIntoView();
+							else {
+								console.error('Fnp > 意外！获取了一个不正常数据，不是函数：', p.scrollIntoView, p, to_id)
+							}
+						},1000)
+						return
+					}
+					if(typeof p.scrollIntoView === 'function')p.scrollIntoView();
+					else {
+						console.error('Fnp > 意外！获取了一个不正常数据，不是函数：', p.scrollIntoView, p, to_id)
+					}
+				}
+			}
+			if(page) Fnp_Open_Page(page,callback);
+			else Fnp_Open_Page(FnpSetting.index,callback);
 		}
 	}
+	fnp_user.fnp = return_
+	return return_
 }
