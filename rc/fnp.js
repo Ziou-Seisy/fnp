@@ -106,6 +106,7 @@ var FnpCompilerDefine = {
 		{type: "H6",beg: "\r#6 ",end: '\n'},
 		{type: "Hp",beg: "\r#p ",end: '\n'},
 		{type: "Tspan",beg: "%{",end: '}%'},
+		{type: "l",beg: "\\l",end: ';'},
 
 		{type: "Hol",beg: "\r#ol:",end: '\n'},
 		{type: "HolD",beg: "\r#ol+:",end: '\n'},
@@ -265,7 +266,8 @@ var FnpCompilerDefine = {
 		{type: "Hsay",beg: "\r#say ",end: '\n'},
 		{type: "OT",beg: "\r@T ",end: '\n'},
 		
-		{type: "import",beg: "\r#import ",end: '\n'},
+		{type: "import",beg: "\r@import ",end: '\n'},
+		{type: "include",beg: "\r@include ",end: '\n'},
 		
 		{type:"count_chars_only",beg: "\\count_chars_only{",end:"}\\count_chars_only"},
 		
@@ -282,6 +284,7 @@ var FnpCompilerDefine = {
 		H5: ["@Basic"],
 		H6: ["@Basic"],
 		Hp: ["@Basic"],
+		l:["@TextS"],
 		
 		Hol: ["@TupleF", " ", 2, 0],
 		HolD: ["@TupleF", " ", 2, 0],
@@ -401,7 +404,10 @@ var FnpCompilerDefine = {
 		
 		Hsay: ["@Pair", " "],
 		OT: ["@Tuple", " ",3],
-		import:["@Text"],
+		
+		import:["@TextS"],
+		include:["@TextS"],
+		
 		count_chars_only:["@TupleF", "|", 2, 0],
 		
 		OTitle: ["@TextS"],
@@ -775,6 +781,7 @@ function Fnp_Open (path,obj){
 	}
 	window.location.href = r.join('')
 }
+var rset = function(){console.error("Fnp > 意外！rset声明而未定义")}
 var FnpInterpreterDefine = {
 	toHTML:{
 		"@Document":["#Element","div","Fnp_Document"],
@@ -788,6 +795,7 @@ var FnpInterpreterDefine = {
 		H6: ["#Element","h6","Fnp_H6"],
 		Hp: ["#Element","p","Fnp_Hp"],
 		Tspan: ["#Element","span","Fnp_Tspan"],
+		l: ["#ElementArray","span","Fnp_Tl",{},{t:{t:'',i:1,my:true}},0],
 		
 		Hol: ["#ElementNesting",[["#ElementArray","div","Hol_arg1",{},{},1],["#ElementArray","div","Hol_text",{},{},2]],["#ElementArray","div","Hol"]],
 		HolD: ["#ElementNesting",[["#ElementArray","div","HolD_arg1",{},{},1],["#ElementArray","div","HolD_text",{},{},2]],["#ElementArray","div","HolD"]],
@@ -923,21 +931,37 @@ var FnpInterpreterDefine = {
 		HDoubleColumnsL: ["#ElementNesting",[["#ElementArray","div","HDoubleColumnsL_arg1",{},{},1],["#ElementArray","div","HDoubleColumnsL_arg2",{},{},2]],["#Element","div","HDoubleColumnsL",{},false]],
 		
 		Htemplate:["#Save","template"],
-		HtemplateUse:["#ElementObj","div","HtemplateUse",{lazy: true},1,0],
-		HtemplateUseFna:["#ElementObj","div","HtemplateUseFna",{lazy: true},1,0],
+		HtemplateUse:["#ElementObj","div","HtemplateUse",{lazy: [true]},1,0],
+		HtemplateUseFna:["#ElementObj","div","HtemplateUseFna",{lazy: [true]},1,0],
 		HtemplateUseFnaRead:["#ElementArray","div","HtemplateUseFnaRead",{base:["&{page}"]},{mod:{t:"",i:1,my:true},fna:{t:"",i:2,my:true}},0],
 		
 		//Hsay: ["@ElementArray","<div class=\"Hsay\"><div class=\"Hsay_1\">&{1}</div><div class=\"Hsay_2\">&{2}</div></div>"],
 		Hsay: ["#ElementNesting",[["#ElementArray","div","Hsay_1",{},{},1],["#ElementArray","div","Hsay_2",{},{},2]],["#Element","div","Hsay",{},0]],
 		OT: ["#ElementArray",'div','OT',{},{rep:{t:"",i:1,my:true},type:{t:"",i:2,my:true},text:{t:"",i:3}},0],
-		import:["@Element","<div style=\"display:none;\" class=\"import_fnp\" src=\"&{text}\"> </div>"],
-		count_chars_only:["@ElementArray","<span class=\"count_chars_only\" beg=\"&{1}\" end=\"&{2}\"></span>"],
+		//import:["@Element","<div style=\"display:none;\" class=\"import_fnp\" src=\"&{text}\"> </div>"],
+		import: ["#ElementArray",'div','Oimport OincludeA',{base:["&{page}"]},{fnp:{t:"",i:1,my:true}},0],
+		include: ["#ElementArray",'div','Oinclude OincludeA',{base:["&{page}"]},{fnp:{t:"",i:1,my:true}},0],
+		
+		count_chars_only:["#ElementNesting",[["#ElementArray","span","count_chars_only_beg",{},{},1],["#ElementArray","span","count_chars_only_mid",{},{},0],["#ElementArray","span","count_chars_only_end",{},{},2]],["#ElementArray","span","count_chars_only",{},{},0]],
 		
 		OTitle: ["#ElementArray","div","OTitle",{},{title:1},0],
 		OIcon: ["#ElementArray","div","OIcon",{},{src:{t:"&{rc}/&{text}",i:1,my:true}},0],
 		ODec: ["#ElementArray","div","ODec",{},{dec:{t:"&{rc}/&{text}",i:1,my:true}},0],
 	},
 	toHTML_rset:[
+		{
+			className:"Fnp_Tl",
+			func:(vb=document.body)=>{
+				let t = vb.getAttribute('t')
+				vb.innerHTML = (()=>{
+					switch(t){
+						case "b":return '&nbsp;';
+						case "B":return '&emsp;';
+						default:return `&${t};`
+					}
+				})()
+			}
+		},
 		{
 			className:"Tto",
 			func:(vb=document.body)=>{
@@ -1092,8 +1116,10 @@ var FnpInterpreterDefine = {
 		{
 			className:"HtemplateUse",
 			func:(vb=document.body)=>{
+				//console.log(vb)
 				let fno = vb.saved
 				let tmp_ = fno['@']
+				//console.log(vb,fno,tmp_,fnp_user['template'])
 				if(typeof fnp_user['template'] !== 'object'){
 					if(vb.getAttribute('lazy'))return 1;
 					console.error("fnp > 模板存储区不存在（且非lazy语法）:",tmp_,'template',fnp_user['template'])
@@ -1111,6 +1137,8 @@ var FnpInterpreterDefine = {
 				let ele = fnp_user.fnp.interpreter(cobj)
 				ele.main.className = "HtemplateUse_Doc"
 				vb.appendChild(ele.main)
+				vb.setAttribute("rset_used","true")
+				Array.from(document.getElementsByClassName('Fnp_Document')).forEach(v => rset(v))
 				//console.log(fno,tmp,cobj,ele)
 			}
 		},
@@ -1141,6 +1169,8 @@ var FnpInterpreterDefine = {
 					return ele.main
 				})
 				r.forEach(v => vb.appendChild(v))
+				vb.setAttribute("rset_used","true")
+				Array.from(document.getElementsByClassName('Fnp_Document')).forEach(v => rset(v))
 				//console.log(fna,$_,tmp_,tmp,r)
 			}
 		},
@@ -1176,6 +1206,8 @@ var FnpInterpreterDefine = {
 							return ele.main
 						})
 						eles.forEach(v=>vb.appendChild(v))
+						vb.setAttribute("rset_used","true")
+						Array.from(document.getElementsByClassName('Fnp_Document')).forEach(v => rset(v))
 					})
 				}
 			})()
@@ -1209,9 +1241,33 @@ var FnpInterpreterDefine = {
 									ele.appendChild(elea)
 									ele.addEventListener('click',(e)=>{
 										if (e.target.elea)return;
-										console.log(elea.style.display,elea.style.display=='none')
-										elea.style.display = (elea.style.display=='none')?'block':'none'
-										console.log(elea.style.display)
+										//console.log(elea.style.display,elea.style.display=='none')
+										if(elea.style.display!='none'){
+											elea.style.display = 'none'
+											return;
+										}
+										elea.style.display = 'block'
+										//console.log(elea.style.display)
+										let ci = elea.getBoundingClientRect()
+										//let lv = ci.left - width
+										//console.log(ci,elea,elea.style)
+										if(ci.x < 0){
+											//console.log(ci,elea,elea.style)
+											elea.animate(
+											  [
+											    { transform: `translate(${'0'}, 0)` }
+											  ],
+											  { duration: 0, fill: 'forwards' }
+											);
+										}else if(ci.right > window.innerWidth){
+											//console.log(ci,elea,elea.style,window.innerWidth)
+											elea.animate(
+											  [
+											    { transform: `translate(${'-100%'}, 0)` }
+											  ],
+											  { duration: 0, fill: 'forwards' }
+											);
+										}
 									})
 									return ele
 								}
@@ -1219,17 +1275,50 @@ var FnpInterpreterDefine = {
 							p.className = 'FnpText_d'
 							p.innerHTML = ''
 							r.forEach(x => p.appendChild(x))
-							console.log(p,p.innerHTML,rep,vb,type,text,sp,r)
+							//console.log(p,p.innerHTML,rep,vb,type,text,sp,r)
 						})
 					})
 				},100)
+			}
+		},{
+			className:"count_chars_only",
+			func:(vb=document.body)=>{
+				setTimeout(()=>{
+					let cnt = 0;
+					Array.from(document.getElementsByClassName("Bnovel")).forEach(v=>{
+						Array.from(v.getElementsByClassName('FnpText')).forEach(p => {
+							cnt += p.innerText.trim().length
+						})
+						Array.from(v.getElementsByClassName('FnpText_OT')).forEach(p => {
+							cnt += p.innerText.trim().length
+						})
+					})
+					vb.getElementsByClassName('count_chars_only_mid')[0].innerHTML = cnt
+					vb.style.display = 'inline'
+				},200)
+			}
+		},{
+			className:"OincludeA",
+			func:(vb=document.body)=>{
+				let fnp_ = vb.getAttribute('fnp')
+				let base = vb.getAttribute('base')
+				let fnp_src = base? `${base}/${fnp_}.fnp` : `${fnp_}.fnp`;
+				FnFileSys.read(fnp_src, (text)=>{
+					let cobj = fnp_user.fnp.compiler(text)
+					let eles = fnp_user.fnp.interpreter(cobj)
+					let ele = eles.main
+					ele.className = "OincludeA_Doc"
+					vb.appendChild(ele)
+					//rset()
+					//console.log()
+					Array.from(document.getElementsByClassName('Fnp_Document')).forEach(v => rset(v))
+				})
 			}
 		}
 	]
 }
 var fnp_template = {}//unused
 var fnp_user = {}
-var rset = function(){console.error("Fnp > 意外！rset声明而未定义")}
 function FnpInterpreter(setting={}, FnpInterpreterDef = FnpInterpreterDefine, doctype = "toHTML"){
 	let DF = {
 		path_reset:function(text = ""){
@@ -1678,8 +1767,8 @@ function FnpInterpreter(setting={}, FnpInterpreterDef = FnpInterpreterDefine, do
 		}
 		return f()
 	}
-	rset = function(ele=document.body, FnpInterpreterDef, doctype){
-		let rs = FnpInterpreterDef[`${doctype}_rset`]
+	rset = function(ele=document.body, FnpInterpreterDefp = FnpInterpreterDef, doctypep = doctype){
+		let rs = FnpInterpreterDefp[`${doctypep}_rset`]
 		if(!Array.isArray(rs)) return;
 		rs.forEach(fo => {
 			Array.from(ele.getElementsByClassName(fo.className)).filter(v=>{
@@ -1691,6 +1780,10 @@ function FnpInterpreter(setting={}, FnpInterpreterDef = FnpInterpreterDefine, do
 				if(!r)v.setAttribute('rset_used',true)
 			})
 		})
+		if(ele.lastElementChild.className == 'FnpText'){
+			let p = ele.lastElementChild.lastElementChild
+			if(typeof p === 'object' && p !== null && p.tagName == 'BR')p.remove()
+		}
 	}
 	return (obj)=>{
 		//console.log(DFf)
@@ -1717,7 +1810,11 @@ function Fnp(FnpSetting){
 		if(typeof fnpHTMLs !== "object")return console.error("Fnp> make_element参数非对象。", [fnpHTMLs])
 		for (let k in FnpSetting.box) {
 			if(Array.isArray(fnpHTMLs[k])){fnpHTMLs[k].forEach(v => FnpSetting.box[k].appendChild(v));continue;}
-			if(typeof fnpHTMLs[k] === "object"){FnpSetting.box[k].appendChild(fnpHTMLs[k]);continue;}
+			if(typeof fnpHTMLs[k] === "object"){
+				FnpSetting.box[k].appendChild(fnpHTMLs[k]);
+				FnpSetting.box[k].className = [FnpSetting.box[k].className,'Fnp_Document_Box'].filter(v=>v).join(' ')
+				continue;
+			}
 			console.error(`Fnp> make_element参数${k}项非对象或数组。`,fnpHTMLs[k])
 		}
 	}

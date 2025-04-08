@@ -48,13 +48,14 @@
 #3 媒体
 \goto{yf|img|图标与图片}\goto、\goto{yf|iframe|内嵌HTML框架元素}\goto、\goto{yf|audio|音频}\goto、\goto{yf|video|视频}\goto
 #3 杂项
-\goto{yf|code|代码}\goto、\goto{yf|cm|注释}\goto
+\goto{yf|code|代码}\goto、\goto{yf|cm|注释}\goto、\goto{yf|l|转义实体}\goto
 #line
 #3 模板与导入
-\goto{yf|template|替换模板}\goto
+\goto{yf|template|替换模板}\goto、\goto{yf|import|导入外部fnp文件}\goto
 #3 向外导出
 \goto{yf|title|文档标题与图标}\goto、\goto{yf|Description|页面元描述}\goto
 #line
 #3 小说写作特化
-\goto{novel|novel|小说文本容器}\goto、\goto{novel|zymcglxs|专有名词高亮显示}\goto
+\goto{novel|novel|小说文本容器}\goto、\goto{novel|zymcglxs|专有名词高亮显示}\goto、\goto{novel|cnt|字数统计}\goto
 #3 学术相关
+\goto{math|box|公式容器}\goto

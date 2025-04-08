@@ -781,3 +781,68 @@ B从下到上2}\bdo
 -Val 文本2
 ```
 #line;
+## 转义实体 \id:l;
+以`\l`开头并以`;`结尾。
+#box.beg
+小空格：{\lb;}
+大空格：{\lB;}
+#box.end
+#line;
+## 导入外部Fnp文件 \id:import;
+### 显式导入外部Fnp文件
+#box.beg
+@include test1
+#box.end
+```
+@include test1
+```
+可以导入外部\abbr{一款标记语言，全称FurryNss_Page|Fnp}\abbr文件，并且其中的特殊设置也将反馈到主文档上：
+#box.beg
+#template_use.beg
+-@ Modt1
+-Key 替换
+#template_use.end
+#box.end
+```
+#template_use.beg
+-@ Modt1
+-Key 替换
+#template_use.end
+```
+其中，`test1.fnp`为：
+```
+# 这是fnp文件
+`test1.fnp`
+#template.beg Modt1
+- \col{#00ffff|&{Key}}\col
+#template.end
+```
+### 隐式导入外部Fnp文件
+#box.beg
+@import test2
+#box.end
+上方块区内应该什么也不显示。
+```
+@import test2
+```
+#box.beg
+#template_use.beg
+-@ Modt2
+-Key 替换文本
+#template_use.end
+#box.end
+```
+#template_use.beg
+-@ Modt2
+-Key 替换文本
+#template_use.end
+```
+其中，`test2.fnp`为：
+```
+# 这是fnp文件
+`test2.fnp`
+#template.beg Modt2
+#4 \col{#0000ff|&{Key}}\col
+#template.end
+```
+#line;

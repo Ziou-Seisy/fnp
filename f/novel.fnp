@@ -16,3 +16,9 @@
 @T 小说 base 叙事性的文学体裁
 ```
 对小说文本容器中的`小说`进行高亮显示，样式为`FnpText_OT_base`，`title`为`叙事性的文学体裁`。
+#line;
+## 字数统计 \id:cnt;
+\count_chars_only{上方小说文本容器有|字。}\count_chars_only
+```
+\count_chars_only{上方小说文本容器有|字。}\count_chars_only
+```

@@ -1,0 +1,33 @@
+# \icoB:{ico.webp|图标|#570bff};Fnp标记语言 - 学术相关 \id:begin;
+#line;
+
+#2 公式容器 \id:box;
+#line;
+#3 行内公式
+`${...}$`或`\M{...}\M`，例如${y = x + 1}$、\M{y = x + 2}\M
+#line;
+#3 单行公式
+$ y = 6x + 5
+#M y = 8x + 5
+```
+$ y = 6x + 5
+#M y = 8x + 5
+```
+#line;
+#3 块区公式
+$.beg
+x = 5
+y = 3x
+$.end
+```
+$.beg
+x = 5
+y = 3x
+$.end
+```
+#line;
+#3 Token显示容器
+$Token u = v
+```
+$Token u = v
+```

@@ -1,0 +1,6 @@
+# 这是fnp文件
+`test1.fnp`
+·
+#template.beg Modt1
+- \col{#00ffff|&{Key}}\col
+#template.end
